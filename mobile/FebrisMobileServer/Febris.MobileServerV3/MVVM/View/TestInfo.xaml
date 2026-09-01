@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Febris.MobileServerV3.MVVM.ViewModel"
+              x:Class="Febris.MobileServerV3.MVVM.View.TestInfo"
+             Title="{Binding Title}"
+             xmlns:localImage="clr-namespace:Febris.MobileServerV3.Resources.Images"
+             BackgroundColor="{StaticResource Secondary}">
+
+    <ContentPage.BindingContext>
+        <vm:ModuleViewModel/>
+    </ContentPage.BindingContext>
+    
+    <Grid BackgroundColor="{StaticResource Secondary}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <!--Logo-->
+        <!--<StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Grid.ColumnSpan="4" Grid.Column="0">-->
+            <StackLayout BackgroundColor="{StaticResource Primary}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Grid.ColumnSpan="4" Grid.Column="0">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                    <Image Source="{localImage:ImageResource Logo.png}" VerticalOptions="Center" HeightRequest="100"/>
+                </ContentView>
+            </StackLayout>
+        </StackLayout>
+
+
+        <!--Show some status icons-->
+        <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="{StaticResource Primary}" Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="1" VerticalOptions="FillAndExpand">
+
+            <!--Name-->            
+            <Label  Grid.Column="0" HorizontalOptions="StartAndExpand"  VerticalOptions="CenterAndExpand" FontSize="Large" FontAttributes="Bold"
+                                                    Text="{Binding Path=ModuleBase.Name, Mode=OneWay}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+            <!--Version-->
+            <Label  Grid.Column="0" HorizontalOptions="End"  VerticalOptions="CenterAndExpand" FontSize="Large" FontAttributes="Bold"
+                                                    Text="   Version: " TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+            <Label  Grid.Column="0" HorizontalOptions="Start"  VerticalOptions="CenterAndExpand" FontSize="Large" FontAttributes="Bold"
+                                                    Text="{Binding Path=ModuleBase.Version, Mode=OneWay}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+
+
+            <!--ProgressBar-->
+            <ActivityIndicator IsVisible="{Binding ProgressBar}" IsRunning="{Binding ProgressBar}" 
+                               BackgroundColor="{StaticResource Secondary}" Color="{StaticResource TextPrimary}" 
+                               Grid.Column="3" WidthRequest="50" HorizontalOptions="End">
+            </ActivityIndicator>
+
+            <!--Status-->
+            <Label  Grid.Column="2" HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand"
+                                                    Text="{Binding StatusMessage, Mode=OneWay}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+            
+            
+
+        </StackLayout>
+
+        <!--body data-->
+        <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource Primary}" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="2" VerticalOptions="FillAndExpand">
+
+            <!--Vertical box setup-->
+            <StackLayout Orientation="Vertical" Spacing="10" BackgroundColor="{StaticResource Secondary}" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="FillAndExpand">
+
+
+                <!--Description-->
+                <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="{StaticResource Primary}">
+                    <!--Label-->
+                    <Label  HorizontalOptions="End"  VerticalOptions="CenterAndExpand"
+                                                    Text="Description: " TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    <!--Variable-->
+                    <Label  HorizontalOptions="Start"  VerticalOptions="CenterAndExpand"
+                                                    Text="{Binding ModuleBase.Description}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                </StackLayout>
+
+                <!--is a Test-->
+                <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="{StaticResource Primary}">
+                    <!--Label-->
+                    <Label  HorizontalOptions="End"  VerticalOptions="CenterAndExpand"
+                                                    Text="Is a Checkoff: " TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    <!--Variable-->
+                    <CheckBox Color="{StaticResource ButtonSelection}" IsChecked="{Binding Path=ModuleBase.IsTest}" IsEnabled="False"
+                              HorizontalOptions="Start" Grid.Column="2"/>   
+                    
+                </StackLayout>
+
+                <!--is Obsolete-->
+                <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="{StaticResource Primary}">
+                    <!--Label-->
+                    <Label  HorizontalOptions="End"  VerticalOptions="CenterAndExpand"
+                                                    Text="Is Obsolete: " TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    <!--Variable-->
+                    <CheckBox Color="{StaticResource ButtonSelection}" IsChecked="{Binding Path=ModuleBase.Obsolete}" IsEnabled="False"
+                              Grid.Column="2" HorizontalOptions="Start"/>
+
+                </StackLayout>
+
+                <!--Creation Date-->
+                <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="{StaticResource Primary}">                
+                <!--Label-->
+                <Label  HorizontalOptions="End"  VerticalOptions="CenterAndExpand"
+                                                    Text="Creation Date: " TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                <!--Variable-->
+                <Label  HorizontalOptions="Start"  VerticalOptions="CenterAndExpand"
+                                                    Text="{Binding ModuleBase.CreationDate}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                </StackLayout>
+
+                <!--Education Category-->
+                <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="{StaticResource Primary}">
+                    <!--Label-->
+                    <Label  HorizontalOptions="End"  VerticalOptions="CenterAndExpand"
+                                                    Text="Category: " TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    <!--Variable-->
+                    <Label  HorizontalOptions="Start"  VerticalOptions="CenterAndExpand"
+                                                    Text="{Binding ModuleBase.EducationCategory}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                </StackLayout>
+
+                <!--Field Type-->
+                <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="{StaticResource Primary}">
+                    <!--Label-->
+                    <Label  HorizontalOptions="End"  VerticalOptions="CenterAndExpand"
+                                                    Text="Field Type: " TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    <!--Variable-->
+                    <Label  HorizontalOptions="Start"  VerticalOptions="CenterAndExpand"
+                                                    Text="{Binding ModuleBase.FieldType}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                </StackLayout>
+                
+                <!--Creation Date-->
+                <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="{StaticResource Primary}">
+                    <!--Label-->
+                    <Label  HorizontalOptions="End"  VerticalOptions="CenterAndExpand"
+                                                    Text="Creation Date: " TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    <!--Variable-->
+                    <Label  HorizontalOptions="Start"  VerticalOptions="CenterAndExpand"
+                                                    Text="{Binding ModuleBase.CreationDate}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                </StackLayout>
+
+                <!--Language-->
+                <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="{StaticResource Primary}">
+                    <!--Label-->
+                    <Label  HorizontalOptions="End"  VerticalOptions="CenterAndExpand"
+                                                    Text="Language: " TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    <!--Variable-->
+                    <Label  HorizontalOptions="Start"  VerticalOptions="CenterAndExpand"
+                                                    Text="{Binding ModuleBase.Language}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                </StackLayout>
+
+                <!--Estimated Completion Time-->
+                <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="{StaticResource Primary}">
+                    <!--Label-->
+                    <Label  HorizontalOptions="End"  VerticalOptions="CenterAndExpand"
+                                                    Text="Estimated Completion Time: " TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    <!--Variable-->
+                    <Label  HorizontalOptions="Start"  VerticalOptions="CenterAndExpand"
+                                                    Text="{Binding ModuleBase.EstimatedCompletionTime}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                </StackLayout>
+
+                <!--Creation Date-->
+                <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="{StaticResource Primary}">
+                    <!--Label-->
+                    <Label  HorizontalOptions="End"  VerticalOptions="CenterAndExpand"
+                                                    Text="Interaction Components: " TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    <!--Variable-->
+                    <Label  HorizontalOptions="Start"  VerticalOptions="CenterAndExpand"
+                                                    Text="{Binding ModuleBase.InteractionComponents}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                </StackLayout>
+
+
+            </StackLayout>
+
+            <!--Vertical box setup-->
+            <StackLayout Orientation="Vertical" Spacing="10" BackgroundColor="{StaticResource Secondary}" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="FillAndExpand">
+
+                <!--Label-->
+                <Label  HorizontalOptions="StartAndExpand"  VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Large"
+                                                    Text="Devices with this Module" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+
+                <!--ListBox-->
+                <ScrollView  HorizontalOptions="StartAndExpand"  VerticalOptions="CenterAndExpand">
+                    <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10" BackgroundColor="{StaticResource Primary}" >
+                        <!--<ListView x:Name="OldStatementIdList">-->
+                        <ListView ItemsSource="{Binding DeviceList}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Frame OutlineColor="{StaticResource TextSecondary}" CornerRadius="3" Padding="2" Margin="0,0,0,5">
+                                            <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource Primary}" VerticalOptions="FillAndExpand">   
+                                                
+                                                <!--Device Name-->
+                                                <Label Text="{Binding CompanionDevice.Name}" Background="{x:Null}" TextColor="{StaticResource TextPrimary}"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                                <!--WifiConnection-->
+                                                <Button Grid.Column="3" WidthRequest="50" HorizontalOptions="End"
+                                                    BackgroundColor="{Binding WiFiConnectedButtonColor}" CommandParameter="{Binding}">
+                                                    <Button.ImageSource>
+                                                        <FontImageSource Glyph="{StaticResource WiFiIcon}" Color="{StaticResource TextPrimary}" FontFamily="FAS"/>
+                                                    </Button.ImageSource>
+                                                </Button>
+                                                
+                                            </StackLayout>
+                                        </Frame>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </ScrollView>
+                
+            </StackLayout>
+        </StackLayout>        
+    </Grid>
+
+</ContentPage>

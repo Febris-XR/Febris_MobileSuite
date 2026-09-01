@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Febris.MobileServerV3.MVVM.ViewModel"
+             x:Class="Febris.MobileServerV3.MVVM.View.PairingModal"
+             Title="Pair a device"
+             xmlns:localImage="clr-namespace:Febris.MobileServerV3.Resources.Images"
+             BackgroundColor="{StaticResource SecondaryBackgroundColor}">
+
+    <StackLayout>
+
+        <!--Logo, matching DeviceInfoModal-->
+        <StackLayout BackgroundColor="{StaticResource Primary}" VerticalOptions="Start" HorizontalOptions="Fill">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                    <Image Source="{localImage:ImageResource Logo.png}" VerticalOptions="Center" HeightRequest="100"/>
+                </ContentView>
+            </StackLayout>
+        </StackLayout>
+
+        <Label
+            Text="Devices connected but not yet paired"
+            Margin="15,15,15,0"
+            TextColor="{StaticResource PrimaryTextColor}" />
+
+        <Label
+            Text="Pairing shows a six digit code on BOTH devices. Confirm they match."
+            Margin="15,0,15,10"
+            FontSize="Small"
+            TextColor="{StaticResource PrimaryTextColor}" />
+
+        <!--Same ListView + ItemTemplate shape as the paired-device list on PairingPage.-->
+        <ListView
+            x:Name="PairableList"
+            ItemsSource="{Binding Path=UnpairedPeers}"
+            HasUnevenRows="True"
+            SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="15,10,15,10">
+                            <Label
+                                Text="{Binding Path=DisplayLabel}"
+                                VerticalOptions="Center"
+                                HorizontalOptions="StartAndExpand"
+                                TextColor="{StaticResource PrimaryTextColor}" />
+                            <Button
+                                Text="Pair"
+                                Style="{StaticResource ButtonTheme}"
+                                Clicked="Pair_Click"
+                                CommandParameter="{Binding}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Label
+            Text="Nothing here means no Companion is connected yet. A Companion appears as soon as it joins the WiFi Direct group, before any pairing exists."
+            Margin="15"
+            FontSize="Small"
+            IsVisible="{Binding Path=HasNoUnpairedPeers}"
+            TextColor="{StaticResource PrimaryTextColor}" />
+
+    </StackLayout>
+</ContentPage>

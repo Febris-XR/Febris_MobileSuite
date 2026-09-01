@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{60CDD22F-8B3E-499D-9737-33CDBA324651}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TemplateGuid>{6968b3a4-1835-46a3-ac5c-1ae33b475983}</TemplateGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Febris.MobileCompanionV3.Droid</RootNamespace>
+    <AssemblyName>Febris.MobileCompanionV3.Android</AssemblyName>
+    <Deterministic>True</Deterministic>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v13.0</TargetFrameworkVersion>
+    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <BundleAssemblies>false</BundleAssemblies>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidManagedSymbols>true</AndroidManagedSymbols>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <BundleAssemblies>false</BundleAssemblies>
+    <!-- Disables Fast Deployment, which pushes assemblies to a .__override__ directory
+         instead of packaging them in the APK. Fast Deployment is deprecated and is a known
+         problem source on modern Android, and the Server head already sets this in BOTH
+         configurations while this head set it only in Debug. Matching them removes a real
+         inconsistency between the two heads.
+         NOT the cause of the startup hang seen on 2026-07-27, despite what an earlier version
+         of this comment claimed. That was a missing NEARBY_WIFI_DEVICES permission: the app
+         ran fine and every WiFi Direct call threw SecurityException, so the UI never advanced
+         past the logo. Kept because the inconsistency is worth removing on its own. -->
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <!--
+      Declared here as well as in Febris.SharedMobileLibrary, which is where the pairing crypto
+      actually consumes it. Same reason as the Febris.XApi.Models ProjectReference below: this is a
+      LEGACY (non-SDK) csproj and does not inherit transitively the way an SDK-style project does.
+      Relying on the transitive path risks an assembly that builds green and is then absent from the
+      APK, failing at pairing time on device instead of at build time.
+    -->
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="MainApplication.cs" />
+    <Compile Include="Networking\WiFi\ClientSocketThread.cs" />
+    <Compile Include="Networking\WiFi\FebrisActionListener.cs" />
+    <Compile Include="Networking\WiFi\FebrisChannelListener.cs" />
+    <Compile Include="Networking\WiFi\FebrisConnectionInfoListener.cs" />
+    <Compile Include="Networking\WiFi\FebrisGroupInfoListener.cs" />
+    <Compile Include="Networking\WiFi\FebrisPeerListListener.cs" />
+    <Compile Include="Networking\WiFi\FebrisServiceResponseListener.cs" />
+    <Compile Include="Networking\WiFi\Models.cs" />
+    <Compile Include="Networking\WiFi\WiFiP2pDirectBroadcastReceiver.cs" />
+    <Compile Include="Networking\WiFi\WiFiP2pServer.cs" />
+    <Compile Include="Networking\WiFi\WiFiService.cs" />
+    <Compile Include="Networking\WiFi\WiFiStaticDetails.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ScreenCaptureConsent.cs" />
+    <Compile Include="Services\ScreenCaptureService.cs" />
+    <Compile Include="Services\ScreenEncoder.cs" />
+    <Compile Include="Services\StatementReceiver.cs" />
+    <Compile Include="Utilities\AndroidLogWriter.cs" />
+    <Compile Include="Utilities\CompanionData.cs" />
+    <Compile Include="Utilities\EventHandlers\ActivityResultCallback.cs" />
+    <Compile Include="Utilities\EventHandlers\EventHandlerHelper.cs" />
+    <Compile Include="Utilities\EventHandlers\ModuleEventHandlerHelper.cs" />
+    <Compile Include="Utilities\EventHandlers\StatementEventHandlerHelper.cs" />
+    <Compile Include="Utilities\PlatformUtility.cs" />
+    <Compile Include="Utilities\SharedFileSystem.cs" />
+    <Compile Include="Utilities\Installer\InstallerResultReceiver.cs" />
+    <Compile Include="Utilities\Installer\InstallerService.cs" />
+    <Compile Include="Utilities\Installer\InstallerStaticDetails.cs" />
+    <Compile Include="Utilities\Installer\PrivilegedInstaller.cs" />
+    <Compile Include="Utilities\Installer\Uninstaller.cs" />
+    <Compile Include="Utilities\ModulePackageUtility.cs" />
+    <Compile Include="Utilities\PackageInstallObserver.cs" />
+    <Compile Include="Utilities\PackageManagerBroadcastReceiver.cs" />
+    <Compile Include="Utilities\UniqueIdentifier.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\icon.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\icon_round.xml" />
+    <AndroidResource Include="Resources\mipmap-hdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\drawable\xamarin_logo.png" />
+    <AndroidResource Include="Resources\drawable\icon_about.png" />
+    <AndroidResource Include="Resources\drawable\icon_feed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\FebrisMobileServer\Febris.SharedMobileLibrary\Febris.SharedMobileLibrary.csproj">
+      <Project>{eb50ea0c-d51b-49bb-b9d3-fc2062da86ae}</Project>
+      <Name>Febris.SharedMobileLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Febris.MobileCompanionV3\Febris.MobileCompanionV3.csproj">
+      <Project>{74C9AAE2-197D-4566-A653-BECC5D6C9232}</Project>
+      <Name>Febris.MobileCompanionV3</Name>
+    </ProjectReference>
+    <!--
+      Direct reference to the xAPI keystone, required since the PR #5 mobile convergence moved the
+      16 xAPI POCOs OUT of Febris.SharedMobileLibrary and into Febris.XApi.Models. This project is a
+      LEGACY (non-SDK) csproj, and legacy projects do not inherit transitive ProjectReferences at
+      compile time the way SDK-style projects do, so referencing SharedMobileLibrary alone no longer
+      makes Febris.ModelLibrary.Models.XApiModels visible here. Without this,
+      Utilities/EventHandlers/StatementEventHandlerHelper.cs fails with CS0234.
+      The keystone keeps the original namespace on purpose, so no `using` had to change.
+    -->
+    <PackageReference Include="Febris.XApi.Models" Version="0.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\provider_paths.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\Febris_Companion_adaptive_fore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\Febris_Companion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\Febris_Companion_adaptive_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-mdpi\Febris_Companion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-mdpi\Febris_Companion_adaptive_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-mdpi\Febris_Companion_adaptive_fore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xhdpi\Febris_Companion_adaptive_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xhdpi\Febris_Companion_adaptive_fore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xhdpi\Febris_Companion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxhdpi\Febris_Companion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxhdpi\Febris_Companion_adaptive_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxhdpi\Febris_Companion_adaptive_fore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\Febris_Companion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\Febris_Companion_adaptive_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\Febris_Companion_adaptive_fore.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+</Project>

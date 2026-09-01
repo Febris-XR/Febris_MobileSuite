@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Febris.MobileServerV3.MVVM.View.CompanionAppPage"
+             Title="{Binding Title}"
+             xmlns:vm="clr-namespace:Febris.MobileServerV3.MVVM.ViewModel"
+             xmlns:localImage="clr-namespace:Febris.MobileServerV3.Resources.Images"
+             BackgroundColor="{StaticResource Secondary}">
+    <ContentPage.Content>
+        
+        
+        <StackLayout Orientation="Vertical">
+
+            <!--Logo-->
+            <StackLayout BackgroundColor="{StaticResource Primary}" VerticalOptions="Start" HorizontalOptions="Fill">
+                <!--<StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Grid.ColumnSpan="4" Grid.Column="0">-->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                        <Image Source="{localImage:ImageResource Logo.png}" VerticalOptions="Center" HeightRequest="100"/>
+                    </ContentView>
+                </StackLayout>
+            </StackLayout>
+
+
+            <StackLayout Orientation="Horizontal" Padding="20,0,0,0">
+
+
+                <!--Left pannel-->
+                <StackLayout Orientation="Vertical">
+
+                    <!--Title Area-->
+                    <StackLayout Orientation="Horizontal">
+
+                        <Label
+                            Text="Companion Application Page"                        
+                            Style="{StaticResource Key=TitleTextTheme}"/>
+                    </StackLayout>
+
+                    <!--Show Launcher VM data-->
+                    <StackLayout Orientation="Vertical">
+
+                        <!--This is for wifi pairing of hardware-->
+
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label 
+                                Text="Name: " 
+                                Style="{StaticResource SubtitleTextTheme}"/>
+                            <Label 
+                                Style="{StaticResource SubtitleTextTheme}"
+                                Text="{Binding Path=LocalSoftwarePackage.Name, Mode=OneTime}"
+                                />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label 
+                                Text="Version: " 
+                                Style="{StaticResource SubtitleTextTheme}"/>
+                            <Label 
+                                Style="{StaticResource SubtitleTextTheme}"
+                                Text="{Binding Path=LocalSoftwarePackage.Version, Mode=OneTime}"
+                                />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="Obsolete: " 
+                               Style="{StaticResource SubtitleTextTheme}"/>
+
+                            <CheckBox 
+                                Color="{StaticResource ButtonSelection}" 
+                                IsChecked="{Binding Path=LocalSoftwarePackage.Obsolete}" 
+                                IsEnabled="False"/>
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="In File System: " 
+                               Style="{StaticResource SubtitleTextTheme}"/>
+
+                            <CheckBox 
+                                Color="{StaticResource ButtonSelection}" 
+                                IsChecked="{Binding Path=ExistsInSystem}" 
+                                IsEnabled="False"/>
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label 
+                                Text="Description: " 
+                                Style="{StaticResource SubtitleTextTheme}"
+                                WidthRequest="100"/>
+                            <Label 
+                                Style="{StaticResource SubtitleTextTheme}"
+                                Text="{Binding Path=LocalSoftwarePackage.Description, Mode=OneTime}"
+                                />
+                        </StackLayout>
+
+                       
+
+
+                    </StackLayout>
+
+
+
+                </StackLayout>
+
+
+                <!--Right pannel-->
+                <StackLayout WidthRequest="350" Padding="30,0,0,0">
+
+                    <Button
+                        Margin="30"
+                        Style="{StaticResource ButtonTheme}"                                     
+                        Text="Remove"
+                        Clicked="DeleteApp_Click">
+                    </Button>
+
+
+                    <Button
+                        Margin="30"
+                        Style="{StaticResource ButtonTheme}"                                     
+                        Text="Update"
+                        Clicked="UpdateCheck_Click">
+                    </Button>
+
+
+                </StackLayout>
+
+
+
+            </StackLayout>
+
+        </StackLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </ContentPage.Content>
+</ContentPage>

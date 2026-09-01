@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Febris.MobileServerV3.MVVM.ViewModel"
+              x:Class="Febris.MobileServerV3.MVVM.View.ProfessionalInfo"
+             Title="{Binding Title}"             
+             xmlns:localImage="clr-namespace:Febris.MobileServerV3.Resources.Images">
+
+    
+    <ContentPage.Content>
+        <Grid BackgroundColor="{StaticResource Secondary}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+
+            <!--Logo-->
+            <!--<StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Grid.ColumnSpan="4" Grid.Column="0">-->
+            <StackLayout BackgroundColor="{StaticResource Primary}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Grid.ColumnSpan="4" Grid.Column="0">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                        <Image Source="{localImage:ImageResource Logo.png}" VerticalOptions="Center" HeightRequest="100"/>
+                    </ContentView>
+                </StackLayout>
+            </StackLayout>
+            <!--Other Data-->
+            <StackLayout Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="10" HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+
+                <!--Name stuff-->
+                <StackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="10" HorizontalOptions="StartAndExpand" Orientation="Vertical">
+                    <!--<StackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">-->
+                    <!--Number-->
+                    <StackLayout Orientation="Horizontal" Grid.Row="1">
+                        <Label Grid.Column="0" Text="Identificaiton: " FontSize="Large"  FontAttributes="Bold" TextColor="{StaticResource TextPrimary}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                        <Label  Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Large"
+                                                    Text="{Binding Path=Professional.IdentificationNumber, Mode=OneWay}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    </StackLayout>
+                    <!--First Name-->
+                    <StackLayout Orientation="Horizontal" Grid.Row="2"  >
+                        <Label Grid.Column="0" Text="First Name: " FontSize="Large"  FontAttributes="Bold" TextColor="{StaticResource TextPrimary}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                        <Label  Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Large"
+                                                    Text="{Binding Path=Professional.FirstName, Mode=OneWay}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    </StackLayout>
+
+                    <!--Last Name-->
+                    <StackLayout Orientation="Horizontal" Grid.Row="3"  >
+                        <Label Grid.Column="0" Text="Last Name: " FontSize="Large"  FontAttributes="Bold" TextColor="{StaticResource TextPrimary}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                        <Label  Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Large"
+                                                    Text="{Binding Path=Professional.LastName, Mode=OneWay}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    </StackLayout>
+                    <!--Role-->
+                    <StackLayout Orientation="Horizontal" Grid.Row="4"  >
+                        <Label Grid.Column="0" Text="User Account Type: " FontSize="Large"  FontAttributes="Bold" TextColor="{StaticResource TextPrimary}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                        <Label  Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Large"
+                                                    Text="{Binding Path=Professional.UserAccountType, Mode=OneWay}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    </StackLayout>
+                    <!--Gender-->
+                    <StackLayout Orientation="Horizontal" Grid.Row="5"  >
+                        <Label Grid.Column="0" Text="Gender: " FontSize="Large"  FontAttributes="Bold" TextColor="{StaticResource TextPrimary}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                        <Label  Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Large"
+                                                    Text="{Binding Path=Professional.Gender, Mode=OneWay}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    </StackLayout>
+                    <!--Phone #-->
+                    <StackLayout Orientation="Horizontal" Grid.Row="6"  >
+                        <Label Grid.Column="0" Text="Phone Number: " FontSize="Large"  FontAttributes="Bold" TextColor="{StaticResource TextPrimary}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                        <Label  Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Large"
+                                                    Text="{Binding Path=Professional.PhoneNumber, Mode=OneWay}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    </StackLayout>
+                    <!--Email Address-->
+                    <StackLayout Orientation="Horizontal" Grid.Row="7"  >
+                        <Label Grid.Column="0" Text="Email Address: " FontSize="Large"  FontAttributes="Bold" TextColor="{StaticResource TextPrimary}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                        <Label  Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Large"
+                                                    Text="{Binding Path=Professional.EmailAddress, Mode=OneWay}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+                    </StackLayout>
+
+                </StackLayout>
+                <!--Photo stuff-->
+                <StackLayout Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" HorizontalOptions="CenterAndExpand" Orientation="Vertical">
+                    <Image Margin="10,10,0,0" x:Name="ProfessionalPhoto" HeightRequest="200" Source="{localImage:ImageResource DefaultUser.png}" />
+                </StackLayout>
+            </StackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

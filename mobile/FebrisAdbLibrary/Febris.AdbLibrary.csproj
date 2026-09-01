@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Interactions\" />
+  </ItemGroup>
+
+  <!-- MC-2 (portability fix, 2026-07-29): the <Reference> items below previously carried absolute
+       HintPaths into "Visual Studio 2019 Community" and ".NET SDK 5.0.303".
+
+       Why that mattered: Febris.AdbLibrary is a ProjectReference of the Server head
+       (Febris.MobileServerV3.Android.csproj:163), so the Server APK could only be built on the one
+       machine that happened to have VS2019 AND VS2022 AND SDK 5.0.303 installed at those exact
+       paths. That made a single box irreplaceable for shipping, with no reproducible build
+       environment, and a Visual Studio update on it could silently remove the ability to release
+       at all. See docs/OSS_CLIENT_DISTRIBUTION.md section 3.2.
+
+       Mono.Android and Java.Interop are genuinely required and cannot simply be dropped: this
+       library uses Android.Util.LogPrinter, Java.IO, Java.Lang, Java.Nio, Java.Net, Java.Security,
+       Java.Util.Concurrent.Atomic and Javax.Crypto throughout AdbLib/. They are now resolved
+       relative to whichever Visual Studio is running the build, with explicit fallbacks.
+
+       The third reference, Microsoft.NET.Sdk.WorkloadManifestReader, was REMOVED rather than
+       repointed. It is a build-time MSBuild assembly and no source file in this library referenced
+       it, so it was a spurious reference. Dropping it removes the .NET SDK 5.0.303 pin entirely.
+
+       Reference-assembly versions are unchanged by this fix (Java.Interop from v1.0, Mono.Android
+       from v11.0), so there is no behavioural change. v11.0 also matches the Server head's own
+       TargetFrameworkVersion.
+
+       To build where none of the probes below resolve, pass
+       -p:FebrisMonoAndroidRefRoot=<MonoAndroid reference-assembly directory>. -->
+  <PropertyGroup>
+    <!-- 1. The Visual Studio instance running this build. Covers 2019 and 2022, any edition, and is
+            the correct answer whenever a VS MSBuild.exe drives the build, which it must for the
+            Xamarin heads. -->
+    <FebrisMonoAndroidRefRoot Condition="'$(FebrisMonoAndroidRefRoot)' == '' And Exists('$(MSBuildExtensionsPath)\..\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid')">$(MSBuildExtensionsPath)\..\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid</FebrisMonoAndroidRefRoot>
+    <!-- 2. VS2022, newest edition first. Reached when a non-VS host drives the build. -->
+    <FebrisMonoAndroidRefRoot Condition="'$(FebrisMonoAndroidRefRoot)' == '' And Exists('$(ProgramW6432)\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid')">$(ProgramW6432)\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid</FebrisMonoAndroidRefRoot>
+    <FebrisMonoAndroidRefRoot Condition="'$(FebrisMonoAndroidRefRoot)' == '' And Exists('$(ProgramW6432)\Microsoft Visual Studio\2022\Professional\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid')">$(ProgramW6432)\Microsoft Visual Studio\2022\Professional\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid</FebrisMonoAndroidRefRoot>
+    <FebrisMonoAndroidRefRoot Condition="'$(FebrisMonoAndroidRefRoot)' == '' And Exists('$(ProgramW6432)\Microsoft Visual Studio\2022\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid')">$(ProgramW6432)\Microsoft Visual Studio\2022\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid</FebrisMonoAndroidRefRoot>
+    <!-- 3. VS2019, the original location, kept last so machines that only have it keep working. -->
+    <FebrisMonoAndroidRefRoot Condition="'$(FebrisMonoAndroidRefRoot)' == '' And Exists('$(MSBuildProgramFiles32)\Microsoft Visual Studio\2019\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid')">$(MSBuildProgramFiles32)\Microsoft Visual Studio\2019\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid</FebrisMonoAndroidRefRoot>
+  </PropertyGroup>
+
+  <!-- Fail with a sentence that names the actual problem. Without this, an unresolved root fails
+       much later as a wall of CS0234 "the namespace name Android does not exist" errors, which is
+       exactly the shape of error that sent an earlier investigation after the wrong cause. -->
+  <Target Name="FebrisValidateMonoAndroidRefRoot" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="'$(FebrisMonoAndroidRefRoot)' == ''"
+           Text="Febris.AdbLibrary could not locate the MonoAndroid reference assemblies it needs (Mono.Android, Java.Interop). Install the Xamarin.Android workload in Visual Studio, or pass -p:FebrisMonoAndroidRefRoot=&lt;MonoAndroid reference-assembly directory&gt;." />
+  </Target>
+
+  <ItemGroup>
+    <Reference Include="Java.Interop">
+      <HintPath>$(FebrisMonoAndroidRefRoot)\v1.0\Java.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Android">
+      <HintPath>$(FebrisMonoAndroidRefRoot)\v11.0\Mono.Android.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

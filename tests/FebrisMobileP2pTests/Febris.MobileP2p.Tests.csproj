@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- WELD-SIMTESTS split.
+       The mobile half of the old Febris.SimulationLibrary.Tests: P2P transport,
+       pairing, video framing and the enum parity gate. It references the AGPL mobile
+       library ONLY. It must never take an edge onto the Apache SDK, or the two tiers
+       are welded back together and the repo cut breaks.
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <Configurations>Debug;Release;Staging</Configurations>
+  </PropertyGroup>
+
+<ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="coverlet.collector" Version="6.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\mobile\FebrisMobileServer\Febris.SharedMobileLibrary\Febris.SharedMobileLibrary.csproj" />
+  </ItemGroup>
+
+</Project>

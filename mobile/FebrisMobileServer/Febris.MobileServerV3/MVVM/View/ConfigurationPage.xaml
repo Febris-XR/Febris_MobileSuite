@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              x:Class="Febris.MobileServerV3.MVVM.View.ConfigurationPage"
+             Title="{Binding Title}"
+             xmlns:vm="clr-namespace:Febris.MobileServerV3.MVVM.ViewModel"
+             xmlns:localImage="clr-namespace:Febris.MobileServerV3.Resources.Images"
+             BackgroundColor="{StaticResource Secondary}">
+    
+    <ContentPage.Content>
+
+        <StackLayout Orientation="Vertical">
+
+            <!--Logo-->
+            <StackLayout BackgroundColor="{StaticResource Primary}" VerticalOptions="Start" HorizontalOptions="Fill">
+                <!--<StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Grid.ColumnSpan="4" Grid.Column="0">-->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                        <Image Source="{localImage:ImageResource Logo.png}" VerticalOptions="Center" HeightRequest="100"/>
+                    </ContentView>
+                </StackLayout>
+            </StackLayout>
+
+
+            <StackLayout Orientation="Horizontal" Padding="20,0,0,0">
+
+
+                <!--Left pannel-->
+                <StackLayout Orientation="Vertical">
+
+                    <!--Title Area-->
+                    <StackLayout Orientation="Horizontal">
+
+                        <Label
+                            Text="Configuration Settings"                        
+                            Style="{StaticResource Key=TitleTextTheme}"/>
+                    </StackLayout>
+
+                    <!--Show Launcher VM data-->
+                    <StackLayout Orientation="Vertical">
+
+                        <!--This is for wifi pairing of hardware-->
+
+                        <!--This is the hardware ID-->
+                        <StackLayout Orientation="Horizontal">
+                            <!-- NODE-9. This was IsReadOnly, showing the identifier the device
+                                 derived for itself. The node now MINTS the credential at
+                                 registration and keeps only its hash, so the derived value
+                                 authenticates against nothing. The operator copies the credential
+                                 the node showed once into this field and presses Save. -->
+                            <Label Text="Hardware License: " 
+                                Style="{StaticResource SubtitleTextTheme}"/>
+                            <Entry 
+                                Text="{Binding Path=HardwareLicense, Mode=TwoWay}" 
+                                Placeholder="Paste the credential from the node Hardware page"
+                                FontSize="Medium" 
+                                TextColor="{StaticResource TextPrimary}"
+                                x:Name="HardwareId"/>
+                        </StackLayout>
+
+                        <!--Developer Account-->
+                        <StackLayout Orientation="Horizontal">
+                            <Label 
+                                Text="Developer Account: " 
+                                Style="{StaticResource SubtitleTextTheme}"/>
+                            <CheckBox 
+                                Color="{StaticResource ButtonSelection}" 
+                                IsChecked="{Binding Path=DeveloperAccount, Mode=TwoWay}" 
+                                IsEnabled="True"
+                                />
+                        </StackLayout>
+                        
+                        <!--Domain Settings-->
+                        <StackLayout Orientation="Vertical" IsVisible="{Binding Path=DomainVisible}">
+                            <!--This is domain Builder-->
+                            <StackLayout Orientation="Horizontal">
+                                <Label 
+                                Text="Domain Prefix: " 
+                                Style="{StaticResource SubtitleTextTheme}"/>
+                                <Entry 
+                                Style="{StaticResource EntryBoxTheme}"
+                                Text="{Binding Path=ConfigModel.DomainPrefix}"
+                                Placeholder="Prefix" 
+                                PlaceholderColor="{StaticResource SecondaryTextColor}"/>
+                                <!--Placeholder="Prefix" 
+                                PlaceholderColor="Gray"/>-->
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Label 
+                                Text="Domain: " 
+                                Style="{StaticResource SubtitleTextTheme}"/>
+                                <Entry 
+                                Style="{StaticResource EntryBoxTheme}"
+                                Text="{Binding Path=ConfigModel.Domain}" 
+                                Placeholder="Domain" 
+                                PlaceholderColor="{StaticResource SecondaryTextColor}"/>
+                                <!--Placeholder="Prefix" 
+                                PlaceholderColor="Gray"/>-->
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Label 
+                                Text="Domain Port: " 
+                                Style="{StaticResource SubtitleTextTheme}"/>
+                                <Entry 
+                                Style="{StaticResource EntryBoxTheme}"
+                                Text="{Binding Path=ConfigModel.DomainPort}"                                 
+                                Placeholder="Port" 
+                                PlaceholderColor="{StaticResource SecondaryTextColor}"/>
+                                <!--Placeholder="Prefix" 
+                                PlaceholderColor="Gray"/>-->
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Label 
+                                Text="Domain Path: " 
+                                Style="{StaticResource SubtitleTextTheme}"/>
+                                <Entry 
+                                Style="{StaticResource EntryBoxTheme}"
+                                Text="{Binding Path=ConfigModel.DomainPath}" 
+                                Placeholder="Path" 
+                                PlaceholderColor="{StaticResource SecondaryTextColor}"/>
+                                <!--Placeholder="Prefix" 
+                                PlaceholderColor="Gray"/>-->
+                            </StackLayout>
+                        </StackLayout>
+
+
+
+                        <Label Text="(User Credentials Are Optional)"
+                               Style="{StaticResource ItalicBodyTextTheme}"/>
+                        <!--This is User Name-->
+                        <StackLayout Orientation="Horizontal">
+                            <Label 
+                                Text="User Name: " 
+                                Style="{StaticResource SubtitleTextTheme}"/>
+                            <Entry 
+                                Style="{StaticResource EntryBoxTheme}"
+                                Text="{Binding UserName, Mode=TwoWay}" 
+                                x:Name="UserName" 
+                                Placeholder="User Name" 
+                                PlaceholderColor="{StaticResource SecondaryTextColor}"/>
+                            <!--<Entry Text="{Binding UserName, Mode=TwoWay}" FontSize="Medium" TextColor="{StaticResource TextPrimary}" x:Name="UserName" Placeholder="User Name" PlaceholderColor="Gray"/>-->
+                        </StackLayout>
+
+                        <!--This is Password-->
+                        <StackLayout Orientation="Horizontal">
+                            <Label 
+                                Text="Password: " 
+                                Style="{StaticResource SubtitleTextTheme}"/>
+                            <Entry 
+                                Style="{StaticResource EntryBoxTheme}"
+                                Text="{Binding Password, Mode=TwoWay}" 
+                                x:Name="Password" 
+                                Placeholder="Password" 
+                                PlaceholderColor="{StaticResource SecondaryTextColor}"
+                                IsPassword="True"/>
+                            <!--<Entry Text="{Binding Password, Mode=TwoWay}" FontSize="Medium" TextColor="{StaticResource TextPrimary}" IsPassword="True" x:Name="Password" Placeholder="Password" PlaceholderColor="Gray"/>-->
+                        </StackLayout>
+
+
+                    </StackLayout>
+
+
+
+                </StackLayout>
+
+
+                <!--Right pannel-->
+                <StackLayout WidthRequest="350" Padding="30,0,0,0">
+
+
+                    <Button
+                        Margin="30"
+                        Style="{StaticResource ButtonTheme}"                                     
+                        Text="Pair New Device"
+                        Clicked="PairDevice_click">
+                    </Button>
+
+
+                <Button
+                        Margin="30"
+                        Style="{StaticResource ButtonTheme}"                                     
+                        Text="Update Settings"
+                        Command="{Binding Path=SaveDomainSettins}">                    
+                    </Button>
+
+
+                    <Button
+                        Margin="30"
+                        Style="{StaticResource ButtonTheme}"                                     
+                        Text="Files On System"
+                        Clicked="FilesOnSystem_click">
+                    </Button>
+
+
+                    <Button
+                        Margin="30"
+                        Style="{StaticResource ButtonTheme}"                                     
+                        Text="Companion App"
+                        Clicked="CompanionApp_click">
+                    </Button>
+
+
+                </StackLayout>
+
+
+
+            </StackLayout>
+
+        </StackLayout>
+
+
+
+
+    </ContentPage.Content>
+</ContentPage>

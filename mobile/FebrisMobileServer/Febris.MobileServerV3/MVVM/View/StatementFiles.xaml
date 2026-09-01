@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              x:Class="Febris.MobileServerV3.MVVM.View.StatementFiles"
+             Title="{Binding Title}"
+             xmlns:localImage="clr-namespace:Febris.MobileServerV3.Resources.Images"
+             BackgroundColor="{StaticResource Secondary}">
+    
+    <ContentPage.Content>
+        <Grid Background="{StaticResource Primary}" VerticalOptions="StartAndExpand" >
+            <!--Formatting-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <!--Logo-->
+            <!--<StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">-->
+            <StackLayout BackgroundColor="{StaticResource Primary}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                        <Image Source="{localImage:ImageResource Logo.png}" VerticalOptions="Center" HeightRequest="100"/>
+                    </ContentView>
+                </StackLayout>
+            </StackLayout>
+                        
+            <!--Unsent Statement List-->
+            <StackLayout Grid.Row="1">
+                <Label Text="Unsent Statement Files" TextColor="{StaticResource TextSecondary}" BackgroundColor="{StaticResource Primary}"/>
+                <ScrollView BackgroundColor="{StaticResource Secondary}">
+                    <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10" BackgroundColor="{StaticResource Secondary}" >
+                        <ListView x:Name="UnsentStatementFileList">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <ContentView>
+                                            <Frame Padding="10" >
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="{Binding Mode=OneWay}" Background="{x:Null}" TextColor="{StaticResource TextPrimary}"/>
+                                                </StackLayout>
+                                            </Frame>
+                                        </ContentView>
+                                        <!--<ContentView BackgroundColor="{StaticResource Primary}">
+                                            <Frame OutlineColor="{StaticResource Primary}" Padding="10" BackgroundColor="{StaticResource Primary}">
+                                                <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource Primary}">
+                                                    <Label Text="{Binding Mode=OneWay}" Background="{x:Null}" TextColor="{StaticResource TextPrimary}"/>
+                                                </StackLayout>
+                                            </Frame>
+                                        </ContentView>-->
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+            <!--Sent Statement List-->
+            <StackLayout Grid.Row="2">
+                <Label Text="Sent Statement Files" TextColor="{StaticResource TextSecondary}" BackgroundColor="{StaticResource Primary}"/>
+                <ScrollView BackgroundColor="{StaticResource Primary}">
+                    <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10" BackgroundColor="{StaticResource Secondary}" >
+                        <ListView x:Name="SentStatementFileList">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <ContentView>
+                                            <Frame Padding="10" >
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="{Binding Mode=OneWay}" Background="{x:Null}" TextColor="{StaticResource TextPrimary}"/>
+                                                </StackLayout>
+                                            </Frame>
+                                        </ContentView>
+                                        <!--<ContentView BackgroundColor="{StaticResource Primary}">
+                                            <Frame OutlineColor="{StaticResource Primary}" Padding="10" BackgroundColor="{StaticResource Primary}">
+                                                <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource Primary}">
+                                                    <Label Text="{Binding Mode=OneWay}" Background="{x:Null}" TextColor="{StaticResource TextPrimary}"/>
+                                                </StackLayout>
+                                            </Frame>
+                                        </ContentView>-->
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+            <!--Unsent Video file List-->
+            <StackLayout Grid.Row="3">
+                <Label Text="Unsent Video Files" TextColor="{StaticResource TextSecondary}" BackgroundColor="{StaticResource Primary}"/>
+                <ScrollView BackgroundColor="{StaticResource Primary}">
+                    <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10" BackgroundColor="{StaticResource Secondary}" >
+                        <ListView x:Name="UnsentVideoFileList">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <ContentView>
+                                            <Frame Padding="10" >
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="{Binding Mode=OneWay}" Background="{x:Null}" TextColor="{StaticResource TextPrimary}"/>
+                                                </StackLayout>
+                                            </Frame>
+                                        </ContentView>
+                                        <!--<ContentView BackgroundColor="{StaticResource Primary}">
+                                            <Frame OutlineColor="{StaticResource Primary}" Padding="10" BackgroundColor="{StaticResource Primary}">
+                                                <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource Primary}">
+                                                    <Label Text="{Binding Mode=OneWay}" Background="{x:Null}" TextColor="{StaticResource TextPrimary}"/>
+                                                </StackLayout>
+                                            </Frame>
+                                        </ContentView>-->
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+            <!--Sent Video file List-->
+            <StackLayout Grid.Row="4">
+                <Label Text="Unsent Video Files" TextColor="{StaticResource TextSecondary}" BackgroundColor="{StaticResource Primary}"/>
+                <ScrollView BackgroundColor="{StaticResource Primary}">
+                    <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10" BackgroundColor="{StaticResource Secondary}" >
+                        <ListView x:Name="SentVideoFileList">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>                                        
+                                        <ContentView>
+                                            <Frame Padding="10" >
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="{Binding Mode=OneWay}" Background="{x:Null}" TextColor="{StaticResource TextPrimary}"/>
+                                                </StackLayout>
+                                            </Frame>
+                                        </ContentView>
+                                        <!--<ContentView BackgroundColor="{StaticResource Primary}">
+                                            <Frame OutlineColor="{StaticResource Primary}" Padding="10" BackgroundColor="{StaticResource Primary}">
+                                                <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource Primary}">
+                                                    <Label Text="{Binding Mode=OneWay}" Background="{x:Null}" TextColor="{StaticResource TextPrimary}"/>
+                                                </StackLayout>
+                                            </Frame>
+                                        </ContentView>-->
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>           
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

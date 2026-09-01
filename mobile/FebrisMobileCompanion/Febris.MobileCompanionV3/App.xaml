@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Febris.MobileCompanionV3.App">
+    <!--
+        Define global resources and styles here, that apply to all pages in your app.
+    -->
+    <Application.Resources>
+        <!--<ResourceDictionary>
+            
+            <Color x:Key="Primary">#2196F3</Color>
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#332196F3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>-->
+            <ResourceDictionary>
+                <!--icons-->
+                <x:String x:Key="LaunchIcon">&#xf04b;</x:String>
+                <x:String x:Key="ListIcon">&#xf022;</x:String>
+                <x:String x:Key="GradCapIcon">&#xf19d;</x:String>
+                <x:String x:Key="UsersIcon">&#xf0c0;</x:String>
+                <x:String x:Key="CogsIcon">&#xf085;</x:String>
+                <x:String x:Key="FilmIcon">&#xf008;</x:String>
+                <x:String x:Key="FileIcon">&#xf15b;</x:String>
+                <x:String x:Key="MessageBoardIcon">&#xf075;</x:String>
+                <x:String x:Key="AddressCardIcon">&#xf2bb;</x:String>
+                <x:String x:Key="InfoIcon">&#xf05a;</x:String>
+                <x:String x:Key="RefreshIcon">&#xf01e;</x:String>
+                <x:String x:Key="VRIcon">&#xf729;</x:String>
+                <x:String x:Key="WiFiIcon">&#xf1eb;</x:String>
+                <x:String x:Key="LinkIcon">&#xf0c1;</x:String>
+                <x:String x:Key="UploadIcon">&#xf56f;</x:String>
+                <x:String x:Key="TrashIcon">&#xf1f8;</x:String>
+                <x:String x:Key="CheckIcon">&#xf00c;</x:String>
+                <x:String x:Key="Battery_Empty">&#xf244;</x:String>
+                <x:String x:Key="Battery_Quarter">&#xf246;</x:String>
+                <x:String x:Key="Battery_Half">&#xf242;</x:String>
+                <x:String x:Key="Battery_ThreeQuarter">&#xf241;</x:String>
+                <x:String x:Key="Battery_Full">&#xf240;</x:String>
+                <x:String x:Key="VideoStreamIcon">&#xf87c;</x:String>
+                <!--<x:String x:Key="Progress_Spinner">&#xf110;</x:String>-->
+                <!--images-->
+                <Image x:Key="FebrisLogo"></Image>
+                <Image x:Key="FebrisIcon"></Image>
+                <Image x:Key="DefaultUser"></Image>
+                <Image x:Key="AppIcon"></Image>
+
+                <!--New Color Pattern to match other launcher-->
+                <!--defining some colors to use in our template and style section-->
+                <Color x:Key="PrimaryButtonColor">#26B99A</Color>
+                <Color x:Key="PrimaryBackgroundColor">#2A3F54</Color>
+                <Color x:Key="SecondaryBackgroundColor">#F7F7F7</Color>
+                <Color x:Key="BoxBackgroundColor">#fff</Color>
+                <Color x:Key="FilledBoxBackgroundColor">#D3D3D3</Color>
+                <!--<SolidColorBrush x:Key="FilledBoxBackgroundColor">#6c757d</SolidColorBrush>-->
+                <!--TextColors-->
+                <Color x:Key="PrimaryTextColor">#5A738E</Color>
+                <Color x:Key="SecondaryTextColor">#73879C</Color>
+                <Color x:Key="LightTextColor">#f8f9fa</Color>
+
+                <!--colors-->
+                <Color x:Key="Accent">#26B99A</Color>
+                <Color x:Key="Secondary">#EDEDED</Color>
+                <Color x:Key="Primary">#2A3F54</Color>
+                <Color x:Key="TextPrimary">#5A738E</Color>
+                <Color x:Key="TextSecondary">#73879C</Color>
+                <Color x:Key="ButtonSelection">DodgerBlue</Color>
+                <Color x:Key="AwakeButton">LightGreen</Color>
+                <Color x:Key="AsleepButton">DarkRed</Color>
+                <Color x:Key="Transparent">Transparent</Color>
+                <!--Battery Colors-->
+                <Color x:Key="Full_Battery">Lime</Color>
+                <Color x:Key="High_Battery">GreenYellow</Color>
+                <Color x:Key="Medium_Battery">yellow</Color>
+                <Color x:Key="Low_Battery">Orange</Color>
+                <Color x:Key="VeryLow_Battery">FireBrick</Color>
+
+                <!--more generic settings-->
+                <Style TargetType="Button" x:Key="ButtonTheme">
+                    <Setter Property="CornerRadius" Value="10"/>
+                    <Setter Property="TextColor" Value="{StaticResource LightTextColor}"></Setter>
+                    <Setter Property="FontAttributes" Value="Bold"></Setter>
+                    <Setter Property="VisualStateManager.VisualStateGroups">
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="{StaticResource Accent}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="#332196F3" />
+                                        <!--<Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />-->
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </Setter>
+                </Style>
+                <Style TargetType="Button" x:Key="StatusIndicatorTheme">
+                    <Setter Property="WidthRequest" Value="50"/>
+                    <Setter Property="HorizontalOptions" Value="Center"/>
+                    <Setter Property="BackgroundColor" Value="{StaticResource Transparent}"/>
+                    <!--<Setter Property="ImageSource">
+                    <FontImageSource Glyph="{TemplateBinding Property=Glyph}">
+                        
+                    </FontImageSource>                    
+                </Setter>-->
+                </Style>
+                <Style x:Key="FloutItemStyle" TargetType="Grid" >
+                    <!--<Setter Property="TextColor" Value="{StaticResource LightTextColor}"/>
+                <Setter Property="FontAttributes" Value="Bold"></Setter>-->
+                    <Setter Property="VisualStateManager.VisualStateGroups">
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" >
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="{StaticResource Accent}"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </Setter>
+                </Style>
+                <Style TargetType="Label" x:Key="TitleTextTheme">
+                    <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+                    <Setter Property="FontAttributes" Value="Bold"/>
+                    <Setter Property="HorizontalTextAlignment" Value="Left" />
+                    <Setter Property="VerticalTextAlignment" Value="Center" />
+                    <Setter Property="VerticalOptions" Value="Center"/>
+                    <Setter Property="HorizontalOptions" Value="Start"/>
+                    <Setter Property="FontSize" Value="Title"/>
+                    <Setter Property="LineBreakMode" Value="WordWrap"/>
+                </Style>
+                <Style TargetType="Label" x:Key="SubtitleTextTheme">
+                    <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+                    <Setter Property="FontAttributes" Value="Bold"/>
+                    <Setter Property="HorizontalTextAlignment" Value="Left" />
+                    <Setter Property="VerticalTextAlignment" Value="Center" />
+                    <Setter Property="VerticalOptions" Value="Center"/>
+                    <Setter Property="HorizontalOptions" Value="Start"/>
+                    <Setter Property="FontSize" Value="Subtitle"/>
+                    <Setter Property="LineBreakMode" Value="WordWrap"/>
+                </Style>
+                <Style TargetType="Label" x:Key="BodyTextTheme">
+                    <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
+                    <Setter Property="HorizontalTextAlignment" Value="Left" />
+                    <Setter Property="VerticalTextAlignment" Value="Center" />
+                    <Setter Property="VerticalOptions" Value="Center"/>
+                    <Setter Property="HorizontalOptions" Value="Start"/>
+                    <Setter Property="FontSize" Value="Body"/>
+                    <Setter Property="LineBreakMode" Value="WordWrap"/>
+                </Style>
+                <Style TargetType="Label" x:Key="ItalicBodyTextTheme">
+                    <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
+                    <Setter Property="FontAttributes" Value="Italic"/>
+                    <Setter Property="HorizontalTextAlignment" Value="Left" />
+                    <Setter Property="VerticalTextAlignment" Value="Center" />
+                    <Setter Property="VerticalOptions" Value="Center"/>
+                    <Setter Property="HorizontalOptions" Value="Start"/>
+                    <Setter Property="FontSize" Value="Body"/>
+                    <Setter Property="LineBreakMode" Value="WordWrap"/>
+                </Style>
+                <Style TargetType="Entry" x:Key="EntryBoxTheme">
+
+                    <Setter Property="FontAttributes" Value="Bold"/>
+                    <Setter Property="HorizontalTextAlignment" Value="Left" />
+                    <Setter Property="VerticalTextAlignment" Value="Center" />
+                    <Setter Property="VerticalOptions" Value="Center"/>
+                    <Setter Property="HorizontalOptions" Value="Start"/>
+                    <Setter Property="FontSize" Value="Body"/>
+                    <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+                </Style>
+                <Style x:Key="RoundedFrameStyle" TargetType="Frame">
+                    <Setter Property="HasShadow" Value="False" />
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="CornerRadius" Value="5" />
+                    <Setter Property="BackgroundColor" Value="{StaticResource FilledBoxBackgroundColor}"/>
+                    <Setter Property="BorderColor" Value="{StaticResource Transparent}" />
+                </Style>
+
+
+                <!--<Setter Property="TextColor" Value="{StaticResource SecondaryBackgroundColor}"/>-->
+
+
+
+
+
+                <!--<DataTemplate DataType="{x:Type viewModel:ConfigViewModel}">
+                <view:ConfigView/>
+            </DataTemplate>-->
+                <!--<DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+                <view:HomeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:LaunchViewModel}">
+                <view:LaunchView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:ModuleViewModel}">
+                <view:ModuleView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:StatementViewModel}">
+                <view:StatementView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:UserViewModel}">
+                <view:UserView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:VideoViewModel}">
+                <view:VideoView/>
+            </DataTemplate>-->
+
+            </ResourceDictionary>
+        <!--</ResourceDictionary>-->        
+    </Application.Resources>
+</Application>

@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Febris.MobileCompanionV3.MVVM.View.LocalFileRepositoryPage"
+             xmlns:vm="clr-namespace:Febris.MobileCompanionV3.MVVM.ViewModel"
+             xmlns:localImage="clr-namespace:Febris.MobileCompanionV3.Resources.Images"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource SecondaryBackgroundColor}">
+    
+    <!--<ContentPage.Content>-->
+        <StackLayout HorizontalOptions="CenterAndExpand">
+
+                                   
+            <!--Label-->
+            <StackLayout                 
+        HorizontalOptions="CenterAndExpand">
+                <Label 
+            Style="{StaticResource Key=TitleTextTheme}">
+                    Files On System
+                </Label>
+            </StackLayout>
+
+           <!--Data Lists-->
+            <StackLayout Orientation="Horizontal">
+
+                 <!--Statement List Box-->
+                <StackLayout 
+                Orientation="Horizontal"  
+                VerticalOptions="CenterAndExpand">
+
+                    <StackLayout     
+                        Orientation="Vertical"                            
+                        BackgroundColor="{StaticResource SecondaryBackgroundColor}">
+
+
+                        <!--Vertical box setup-->
+                        <StackLayout Orientation="Vertical" 
+                            BackgroundColor="{StaticResource Secondary}"                                  
+                            VerticalOptions="FillAndExpand">
+
+
+                            <!--Label-->
+                            <Label 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand"
+                    Style="{StaticResource BodyTextTheme}"
+                    Text="Statement List" />
+
+
+                            <!--ListBox-->
+                            <ScrollView  
+                    BackgroundColor="{StaticResource FilledBoxBackgroundColor}" 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand" 
+                    >
+
+                                <StackLayout 
+                        Orientation="Vertical">
+                                    <!--<ListView x:Name="VideoIdList">-->
+                                    <ListView ItemsSource="{Binding Path=StatementVM.UnsentStatementFileList}"
+                                              HasUnevenRows="True" 
+                    Margin="5"
+                                              >
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <Frame 
+                                            OutlineColor="{StaticResource Transparent}"                                                     
+                                            CornerRadius="3" 
+                                            Padding="2" 
+                                            Margin="0,0,0,5">
+                                                        <StackLayout 
+                                            Orientation="Horizontal">
+                                                            <Label 
+                                                        Text="{Binding Mode=OneWay}"
+                                                        Style="{StaticResource BodyTextTheme}"/>
+                                                        </StackLayout>
+                                                    </Frame>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackLayout>
+
+
+                            </ScrollView>
+
+                        </StackLayout>
+                        
+                        <!--Vertical box setup-->
+                        <StackLayout Orientation="Vertical" 
+                            BackgroundColor="{StaticResource Secondary}"                                  
+                            VerticalOptions="FillAndExpand">
+
+
+                            <!--Label-->
+
+                            <Label 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand"
+                    Style="{StaticResource BodyTextTheme}"
+                    Text="Old Statement List" />
+
+
+                            <!--ListBox-->
+
+                            <ScrollView  
+                    BackgroundColor="{StaticResource FilledBoxBackgroundColor}" 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand" 
+                    >
+
+                                <StackLayout 
+                        Orientation="Vertical">
+
+                                    <!--<ListView x:Name="VideoIdList">-->
+                                    <ListView ItemsSource="{Binding Path=StatementVM.SentStatementFileList}"
+                                          HasUnevenRows="True"
+                                          Margin="5">
+
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <Frame 
+                                            OutlineColor="{StaticResource Transparent}"                                                     
+                                            CornerRadius="3" 
+                                            Padding="2" 
+                                            Margin="0,0,0,5">
+                                                        <StackLayout 
+                                            Orientation="Horizontal">
+                                                            <Label 
+                                                        Text="{Binding Mode=OneWay}"
+                                                        Style="{StaticResource BodyTextTheme}"/>
+                                                        </StackLayout>
+                                                    </Frame>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackLayout>
+                            </ScrollView>
+
+                        </StackLayout>
+
+                    </StackLayout>
+
+                </StackLayout>
+
+                <!--Video List Box-->
+                <StackLayout 
+                Orientation="Horizontal"  
+                VerticalOptions="CenterAndExpand">
+
+                    <StackLayout     
+                        Orientation="Vertical"                            
+                        BackgroundColor="{StaticResource SecondaryBackgroundColor}">
+
+
+                        <!--Vertical box setup-->
+
+                        <StackLayout Orientation="Vertical" 
+                            BackgroundColor="{StaticResource Secondary}"                                  
+                            VerticalOptions="FillAndExpand">
+
+
+                            <!--Label-->
+                            <Label 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand"
+                    Style="{StaticResource BodyTextTheme}"
+                    Text="Video List" />
+
+
+                            <!--ListBox-->
+                            <ScrollView  
+                    BackgroundColor="{StaticResource FilledBoxBackgroundColor}" 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand" 
+                    >
+
+                                <StackLayout 
+                        Orientation="Vertical">
+                                    <!--<ListView x:Name="VideoIdList">-->
+                                    <ListView ItemsSource="{Binding Path=VideoVM.UnsentVideoFileList}"
+                                              HasUnevenRows="True" 
+                    Margin="5"
+                                              >
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <Frame 
+                                            OutlineColor="{StaticResource Transparent}"                                                     
+                                            CornerRadius="3" 
+                                            Padding="2" 
+                                            Margin="0,0,0,5">
+                                                        <StackLayout 
+                                            Orientation="Horizontal">
+                                                            <Label 
+                                                        Text="{Binding Mode=OneWay}"
+                                                        Style="{StaticResource BodyTextTheme}"/>
+                                                        </StackLayout>
+                                                    </Frame>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackLayout>
+
+
+                            </ScrollView>
+
+                        </StackLayout>
+                        <!--Vertical box setup-->
+
+                        <StackLayout Orientation="Vertical" 
+                            BackgroundColor="{StaticResource Secondary}"                                  
+                            VerticalOptions="FillAndExpand">
+
+
+                            <!--Label-->
+
+                            <Label 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand"
+                    Style="{StaticResource BodyTextTheme}"
+                    Text="Old Video List" />
+
+
+                            <!--ListBox-->
+
+                            <ScrollView  
+                    BackgroundColor="{StaticResource FilledBoxBackgroundColor}" 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand" 
+                    >
+
+                                <StackLayout 
+                        Orientation="Vertical">
+
+                                    <!--<ListView x:Name="VideoIdList">-->
+                                    <ListView ItemsSource="{Binding Path=VideoVM.SentVideoFileList}"
+                                          HasUnevenRows="True"
+                                          Margin="5">
+
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <Frame 
+                                            OutlineColor="{StaticResource Transparent}"                                                     
+                                            CornerRadius="3" 
+                                            Padding="2" 
+                                            Margin="0,0,0,5">
+                                                        <StackLayout 
+                                            Orientation="Horizontal">
+                                                            <Label 
+                                                        Text="{Binding Mode=OneWay}"
+                                                        Style="{StaticResource BodyTextTheme}"/>
+                                                        </StackLayout>
+                                                    </Frame>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackLayout>
+                            </ScrollView>
+
+                        </StackLayout>
+
+                    </StackLayout>
+
+                </StackLayout>
+
+
+                <!--Module List Box-->
+                <StackLayout 
+                Orientation="Horizontal"  
+                VerticalOptions="CenterAndExpand">
+                                
+                    <StackLayout     
+                        Orientation="Vertical"                            
+                        BackgroundColor="{StaticResource SecondaryBackgroundColor}">
+
+
+                        <!--Vertical box setup-->
+
+                        <StackLayout Orientation="Vertical" 
+                            BackgroundColor="{StaticResource Secondary}"                                  
+                            VerticalOptions="FillAndExpand">
+
+
+                            <!--Label-->
+                            <Label 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand"
+                    Style="{StaticResource BodyTextTheme}"
+                    Text="Module List" />
+
+
+                            <!--ListBox-->
+                            <ScrollView  
+                    BackgroundColor="{StaticResource FilledBoxBackgroundColor}" 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand" 
+                    >
+
+                                <StackLayout 
+                        Orientation="Vertical">
+                                    <!--<ListView x:Name="VideoIdList">-->
+                                    <ListView ItemsSource="{Binding Path=ModuleVM.FileList}"
+                                              HasUnevenRows="True" 
+                    Margin="5"
+                                              >
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <Frame 
+                                            OutlineColor="{StaticResource Transparent}"                                                     
+                                            CornerRadius="3" 
+                                            Padding="2" 
+                                            Margin="0,0,0,5">
+                                                        <StackLayout 
+                                            Orientation="Horizontal">
+                                                            <Label 
+                                                        Text="{Binding Mode=OneWay}"
+                                                        Style="{StaticResource BodyTextTheme}"/>
+                                                        </StackLayout>
+                                                    </Frame>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackLayout>
+                                
+                                
+                            </ScrollView>
+
+                        </StackLayout>
+                        <!--Vertical box setup-->
+
+                        <StackLayout Orientation="Vertical" 
+                            BackgroundColor="{StaticResource Secondary}"                                  
+                            VerticalOptions="FillAndExpand">
+
+
+                            <!--Label-->
+
+                            <Label 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand"
+                    Style="{StaticResource BodyTextTheme}"
+                    Text="Zip List" />
+
+
+                            <!--ListBox-->
+
+                            <ScrollView  
+                    BackgroundColor="{StaticResource FilledBoxBackgroundColor}" 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand" 
+                    >
+
+                                <StackLayout 
+                        Orientation="Vertical">
+
+                                    <!--<ListView x:Name="VideoIdList">-->
+                                    <ListView ItemsSource="{Binding Path=ModuleVM.ZipList}"
+                                          HasUnevenRows="True"
+                                          Margin="5">
+
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <Frame 
+                                            OutlineColor="{StaticResource Transparent}"                                                     
+                                            CornerRadius="3" 
+                                            Padding="2" 
+                                            Margin="0,0,0,5">
+                                                        <StackLayout 
+                                            Orientation="Horizontal">
+                                                            <Label 
+                                                        Text="{Binding Mode=OneWay}"
+                                                        Style="{StaticResource BodyTextTheme}"/>
+                                                        </StackLayout>
+                                                    </Frame>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackLayout>
+                            </ScrollView>
+
+                        </StackLayout>
+                        
+                    </StackLayout>
+                
+                </StackLayout>
+            
+            </StackLayout>
+        </StackLayout>
+    <!--</ContentPage.Content>-->
+</ContentPage>

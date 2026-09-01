@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Febris.MobileServerV3.MVVM.View.DeviceListPage"
+             xmlns:pages="clr-namespace:Febris.MobileServerV3.MVVM.View"
+              Title="{Binding Title}"
+             xmlns:localImage="clr-namespace:Febris.MobileServerV3.Resources.Images"
+             xmlns:vm="clr-namespace:Febris.MobileServerV3.MVVM.ViewModel"
+             BackgroundColor="{StaticResource SecondaryBackgroundColor}"
+             >
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+
+            <!--Logo-->
+            <StackLayout BackgroundColor="{StaticResource Primary}" VerticalOptions="Start" HorizontalOptions="Fill">
+                <!--<StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Grid.ColumnSpan="4" Grid.Column="0">-->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                        <Image Source="{localImage:ImageResource Logo.png}" VerticalOptions="Center" HeightRequest="100"/>
+                    </ContentView>
+                </StackLayout>
+            </StackLayout>
+        
+            <StackLayout Orientation="Horizontal">
+                        
+                <!--Left pannel-->
+                <StackLayout Orientation="Vertical">
+
+
+                    <StackLayout                 
+                        HorizontalOptions="CenterAndExpand">
+                        <Label 
+                            Style="{StaticResource Key=TitleTextTheme}">
+                            Device List
+                        </Label>
+                    </StackLayout>
+
+
+                    <ScrollView 
+                        BackgroundColor="{StaticResource FilledBoxBackgroundColor}"
+                        Padding="5">
+                        <StackLayout 
+                            Orientation="Vertical" 
+                            Padding="5" 
+                            Spacing="5" 
+                            BackgroundColor="{StaticResource Transparent}"
+                            >
+                            <!--<ListView  x:Name="DeviceList" ItemSelected="Device_Select" HasUnevenRows="True">-->
+                            <!--<ListView  x:Name="DeviceList" HasUnevenRows="True">-->
+                            <ListView 
+                                    ItemsSource="{Binding Path=ItemList}" 
+                                    HasUnevenRows="True"
+                                    SelectedItem="{Binding Path=DisplayedItem}">
+                            <!--<ListView 
+                                    ItemsSource="{Binding Path=ItemResultList}" 
+                                    HasUnevenRows="True"
+                                    SelectedItem="{Binding Path=DisplayedItem}">-->
+
+                                <ListView.ItemTemplate >
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Frame 
+                                            OutlineColor="{StaticResource Transparent}"  
+                                            CornerRadius="3" 
+                                            Padding="2" 
+                                            Margin="0,0,0,5">
+
+                                                <StackLayout 
+                                                Orientation="Horizontal" 
+                                                BackgroundColor="{StaticResource Secondary}" 
+                                                VerticalOptions="FillAndExpand">
+
+                                                    <!--Name-->
+                                                    <Label   
+                                                    HorizontalOptions="CenterAndExpand" 
+                                                    VerticalOptions="CenterAndExpand" 
+                                                    FontAttributes="Bold" 
+                                                    FontSize="Large"
+                                                    Text="{Binding Path=CompanionDevice.Name}" 
+                                                    TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" 
+                                                    LineBreakMode="WordWrap"
+                                                    />
+                                                    <!--<Label   
+                                                    HorizontalOptions="CenterAndExpand" 
+                                                    VerticalOptions="CenterAndExpand" 
+                                                    FontAttributes="Bold" 
+                                                    FontSize="Large"
+                                                    Text="{Binding Path=CompanionDevice.Name, Mode=OneWay}" 
+                                                    TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" 
+                                                    LineBreakMode="WordWrap"
+                                                    />-->
+
+                                                    <!--Progress Spinner-->
+                                                    <ActivityIndicator 
+                                                    IsVisible="{Binding Path=ProgressBar}" 
+                                                    IsRunning="{Binding Path=ProgressBar}" 
+                                                    BackgroundColor="{StaticResource Secondary}" 
+                                                    Color="{StaticResource Primary}"                                               
+                                                    WidthRequest="50" 
+                                                    HorizontalOptions="End">
+                                                    </ActivityIndicator>
+
+                                                    <!--Status-->
+                                                    <Label                                                  
+                                                    HorizontalOptions="StartAndExpand"  
+                                                    VerticalOptions="CenterAndExpand"
+                                                    Text="{Binding Path=StatusMessage}" 
+                                                    TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" 
+                                                    LineBreakMode="WordWrap"
+                                                    />
+                                                    <!--<Label                                                  
+                                                    HorizontalOptions="StartAndExpand"  
+                                                    VerticalOptions="CenterAndExpand"
+                                                    Text="{Binding Path=StatusMessage, Mode=OneWay}" 
+                                                    TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" 
+                                                    LineBreakMode="WordWrap"
+                                                    />-->
+
+                                                    <!--Battery connector-->
+                                                    <Button  
+                                                            WidthRequest="50" 
+                                                            HorizontalOptions="Center" 
+                                                            BackgroundColor="{StaticResource Secondary}" 
+                                                            CommandParameter="{Binding}">
+                                                        <Button.ImageSource>
+                                                            <FontImageSource 
+                                                            Glyph="{Binding Path=BatteryIcon}" 
+                                                            Color="{Binding Path=BatteryIconColor}" 
+                                                            FontFamily="FAS"/>
+                                                        </Button.ImageSource>
+                                                    </Button>
+
+                                                    <!--BlueTooth connector-->
+                                                    <Button  Grid.Column="3"  
+                                                            WidthRequest="50" 
+                                                            HorizontalOptions="Center" 
+                                                            BackgroundColor="{StaticResource Transparent}"
+                                                            CommandParameter="{Binding}">
+                                                        <Button.ImageSource>
+                                                            <FontImageSource 
+                                                                Glyph="{StaticResource BluetoothIcon}" 
+                                                                Color="{Binding Path=BluetoothConnectedButtonColor}" 
+                                                                FontFamily="FAB"/>
+                                                        </Button.ImageSource>
+                                                    </Button>
+
+                                                    <!--WifiConnection-->
+                                                    <Button 
+                                                        WidthRequest="50" 
+                                                        HorizontalOptions="Center"
+                                                        BackgroundColor="{StaticResource Transparent}" 
+                                                        CommandParameter="{Binding}">
+                                                        <Button.ImageSource>
+                                                            <FontImageSource 
+                                                            Glyph="{StaticResource WiFiIcon}" 
+                                                            Color="{Binding Path=WiFiConnectedButtonColor}" 
+                                                            FontFamily="FAS"/>
+                                                        </Button.ImageSource>
+                                                    </Button>
+
+                                                   
+                                                </StackLayout>
+                                            </Frame>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                    </ScrollView>
+
+
+                </StackLayout>
+                        
+                <!--Right pannel-->
+                <StackLayout Orientation="Vertical">
+
+                    <!--Label-->
+                    <StackLayout                 
+                HorizontalOptions="CenterAndExpand">
+                        <Label 
+                    Style="{StaticResource Key=TitleTextTheme}">
+                            Basic Device Information
+                        </Label>
+                    </StackLayout>
+
+                    <!--Status Indicators-->
+                    <StackLayout Orientation="Horizontal">
+                        <Label Style="{StaticResource SubtitleTextTheme}" Text="Status: "/>
+
+                        <!--Battery connector-->
+                        <Button                              
+                        HorizontalOptions="Center"                             
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource StatusIndicatorTheme}">
+                            <Button.ImageSource>
+                                <FontImageSource 
+                                Glyph="{Binding Path=DisplayedItem.BatteryIcon}" 
+                                Color="{Binding Path=DisplayedItem.BatteryIconColor}" 
+                                FontFamily="FAS"/>
+                            </Button.ImageSource>
+                        </Button>
+
+                        <!--VideoStream Capability-->
+                        <Button  
+                            WidthRequest="50" 
+                            HorizontalOptions="Center" 
+                            Style="{StaticResource StatusIndicatorTheme}">
+                            <!--BackgroundColor="{Binding VideoStreamAvailableButtonColor}" 
+                                                        CommandParameter="{Binding}" 
+                                                        Clicked="StartStreaming_Click" 
+                                                        IsVisible="{Binding VideoStreamAvailable}">-->
+                            <Button.ImageSource>
+                                <FontImageSource 
+                                    Glyph="{StaticResource VideoStreamIcon}" 
+                                    Color="{Binding Path=DisplayedItem.VideoStreamAvailableButtonColor}" 
+                                    FontFamily="FAS"/>
+                            </Button.ImageSource>
+                        </Button>
+
+                        <!--BlueTooth connector-->
+                        <Button  
+                            WidthRequest="50" 
+                            HorizontalOptions="Center" 
+                            Style="{StaticResource StatusIndicatorTheme}"  >
+                            <!--CommandParameter="{Binding}">-->
+                            <Button.ImageSource>
+                                <FontImageSource Glyph="{StaticResource BluetoothIcon}" 
+                                        Color="{Binding Path=DisplayedItem.BluetoothConnectedButtonColor}" 
+                                        FontFamily="FAB"/>
+                            </Button.ImageSource>
+                        </Button>
+
+                        <!--WifiConnection-->
+                        <Button 
+                            WidthRequest="50" 
+                            HorizontalOptions="Center"
+                            Style="{StaticResource StatusIndicatorTheme}"
+                            CommandParameter="{Binding}">
+                            <Button.ImageSource>
+                                <FontImageSource 
+                                Glyph="{StaticResource WiFiIcon}" 
+                                Color="{Binding Path=DisplayedItem.WiFiConnectedButtonColor}" 
+                                FontFamily="FAS"/>
+                            </Button.ImageSource>
+                        </Button>
+                       
+
+                    </StackLayout>
+                    
+                    <!--Info-->
+                    <StackLayout Orientation="Vertical">
+
+                        <!--Name-->
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="Name: "/>
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="{Binding Path=DisplayedItem.CompanionDevice.Name}"/>
+                        </StackLayout>
+                        
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="Id: "/>
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="{Binding Path=DisplayedItem.CompanionDevice.UniqueIdentifier}"/>
+                        </StackLayout>
+
+
+                        <!--BluetoothInfo-->
+                        <!--BlueToothName-->
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="BlueTooth Name: "/>
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="{Binding Path=DisplayedItem.CompanionDevice.BlueToothName}"/>
+                        </StackLayout>
+                        <!--BlueToothAlias-->
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="BlueTooth Alias: "/>
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="{Binding Path=DisplayedItem.CompanionDevice.BlueToothAlias}"/>
+                        </StackLayout>
+                        <!--BlueToothAlias-->
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="BlueTooth Mac: "/>
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="{Binding Path=DisplayedItem.CompanionDevice.BlueToothMacAddress}"/>
+                        </StackLayout>
+
+                        <!--WifiInfo-->
+                        <!--WiFiDeviceName-->
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="WiFi Name: "/>
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="{Binding Path=DisplayedItem.CompanionDevice.WiFiDeviceName}"/>
+                        </StackLayout>
+                        <!--WifiMacAddress-->
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="Wifi MacAddress: "/>
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="{Binding Path=DisplayedItem.CompanionDevice.WifiMacAddress}"/>
+                        </StackLayout>
+                        <!--WiFiPrimaryDeviceType-->
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="WiFi Primary Device Type: "/>
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="{Binding Path=DisplayedItem.CompanionDevice.WiFiPrimaryDeviceType}"/>
+                        </StackLayout>
+
+
+
+                    </StackLayout>
+
+                    <!--Buttons-->
+                    <StackLayout 
+                        Orientation="Horizontal" 
+                        HorizontalOptions="CenterAndExpand" 
+                        Spacing="40">
+                        
+                    <!--Device selection-->
+                    <Button          
+                        HorizontalOptions="Center"
+                        x:Name="SelectButton" 
+                        Text="Select"             
+                        Style="{StaticResource ButtonTheme}"
+                        BackgroundColor="{StaticResource PrimaryButtonColor}"  
+                        Command="{Binding Path=SelectDeviceCommand}"                        
+                        CornerRadius="10">
+                    </Button>
+                        
+                    <!--info button-->
+                        <Button  
+                        BackgroundColor="{StaticResource PrimaryButtonColor}"
+                        Style="{StaticResource ButtonTheme}"
+                        Clicked="DeviceInfo_Click">
+                            <!--Command="{Binding Path=DetailsViewCommand}"
+                        >-->                            
+                        <Button.ImageSource>
+                            <FontImageSource Glyph="{StaticResource InfoIcon}" FontFamily="FAS"/>
+                        </Button.ImageSource>
+                    </Button>
+
+                        <!--info button-->
+                        <!--<Button  
+                        BackgroundColor="{StaticResource PrimaryButtonColor}"
+                        Style="{StaticResource ButtonTheme}"
+                        Command="{Binding Path=VideoStreamViewCommand}"
+                        >
+                            <Button.ImageSource>
+                                <FontImageSource Glyph="{StaticResource VideoStreamIcon}" FontFamily="FAS"/>
+                            </Button.ImageSource>
+                        </Button>-->
+                    </StackLayout>
+
+                    <!--Label-->
+                    <StackLayout                 
+                HorizontalOptions="CenterAndExpand">
+                        <Label 
+                    Style="{StaticResource Key=TitleTextTheme}">
+                            Selected Device Information
+                        </Label>
+                    </StackLayout>
+
+                    <!--Status Indicators-->
+                    <StackLayout Orientation="Horizontal">
+                        <Label Style="{StaticResource SubtitleTextTheme}" Text="Status: "/>
+
+                        <!--Battery connector-->
+                        <Button                              
+                        HorizontalOptions="Center"                             
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource StatusIndicatorTheme}">
+                            <Button.ImageSource>
+                                <FontImageSource 
+                                Glyph="{Binding Path=SelectedItem.BatteryIcon}" 
+                                Color="{Binding Path=SelectedItem.BatteryIconColor}" 
+                                FontFamily="FAS"/>
+                            </Button.ImageSource>
+                        </Button>
+                        
+                        <!--VideoStream Capability-->
+                        <Button  
+                            WidthRequest="50" 
+                            HorizontalOptions="Center" 
+                             Style="{StaticResource StatusIndicatorTheme}">
+                            <!--BackgroundColor="{Binding VideoStreamAvailableButtonColor}" 
+                                                        CommandParameter="{Binding}" 
+                                                        Clicked="StartStreaming_Click" 
+                                                        IsVisible="{Binding VideoStreamAvailable}">-->
+                            <Button.ImageSource>
+                                <FontImageSource 
+                                    Glyph="{StaticResource VideoStreamIcon}" 
+                                    Color="{Binding Path=SelectedItem.VideoStreamAvailableButtonColor}" 
+                                    FontFamily="FAS"/>
+                            </Button.ImageSource>
+                        </Button>
+                       
+                        <!--BlueTooth connector-->
+                        <Button  
+                            WidthRequest="50" 
+                            HorizontalOptions="Center" 
+                            Style="{StaticResource StatusIndicatorTheme}"
+                            CommandParameter="{Binding}">
+                            <Button.ImageSource>
+                                <FontImageSource 
+                                    Glyph="{StaticResource BluetoothIcon}" 
+                                    Color="{Binding Path=SelectedItem.BluetoothConnectedButtonColor}" 
+                                    FontFamily="FAB"/>
+                            </Button.ImageSource>
+                        </Button>
+
+                        <!--WifiConnection-->
+                        <Button 
+                            WidthRequest="50" 
+                            HorizontalOptions="Center"
+                            Style="{StaticResource StatusIndicatorTheme}"                            
+                            CommandParameter="{Binding}">
+                            <Button.ImageSource>
+                                <FontImageSource 
+                                Glyph="{StaticResource WiFiIcon}" 
+                                Color="{Binding Path=SelectedItem.WiFiConnectedButtonColor}" 
+                                FontFamily="FAS"/>
+                            </Button.ImageSource>
+                        </Button>
+                       
+                    </StackLayout>
+
+                    <!--Info-->
+                    <StackLayout Orientation="Vertical">
+
+                        <!--Name-->
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="Name: "/>
+                            <Label Style="{StaticResource SubtitleTextTheme}" 
+                                Text="{Binding Path=SelectedItem.CompanionDevice.Name}"/>
+                        </StackLayout>
+
+
+
+                    </StackLayout>
+
+                </StackLayout>
+
+            </StackLayout>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

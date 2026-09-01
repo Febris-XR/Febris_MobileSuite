@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Febris.MobileServerV3.MVVM.View.UserListPage"
+             Title="{Binding Title}"
+             xmlns:localImage="clr-namespace:Febris.MobileServerV3.Resources.Images" 
+             xmlns:vm="clr-namespace:Febris.MobileServerV3.MVVM.ViewModel"
+             BackgroundColor="{StaticResource Secondary}">
+       
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+
+            <!--Logo-->
+            <StackLayout BackgroundColor="{StaticResource Primary}" VerticalOptions="Start" HorizontalOptions="Fill">
+                <!--<StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Grid.ColumnSpan="4" Grid.Column="0">-->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                        <Image Source="{localImage:ImageResource Logo.png}" VerticalOptions="Center" HeightRequest="100"/>
+                    </ContentView>
+                </StackLayout>
+            </StackLayout>
+
+
+
+            <StackLayout Orientation="Horizontal">
+
+
+                <!--Left pannel-->
+                <StackLayout Orientation="Vertical">
+
+                    <!--Search Area-->
+                    <StackLayout Orientation="Horizontal">
+                        
+                        <Label
+                            Text="User List"                        
+                            Style="{StaticResource Key=TitleTextTheme}"/>
+
+                        <Frame Style="{StaticResource RoundedFrameStyle}">
+                            <Entry 
+                                Style="{StaticResource Key=EntryBoxTheme}"
+                                WidthRequest="500"
+                                Margin="5"
+                                Text="{Binding Path=UserSearch}"
+                                />
+                        </Frame>
+                        
+                        <Label
+                            Text="Cohort Drop Down List"                        
+                            Style="{StaticResource Key=TitleTextTheme}"/>
+                        
+                    </StackLayout>
+
+                    <!--List-->
+                    <ScrollView 
+                        BackgroundColor="{StaticResource FilledBoxBackgroundColor}"
+                        Padding="10">
+                        <StackLayout Orientation="Vertical">
+                            <ListView ItemsSource="{Binding Path=SearchResultList}"
+                                      SelectedItem="{Binding Path=DisplayedUser}">
+                                <!--Style="{StaticResource Key=ListTheme}" 
+                                 SelectedItem="{Binding Path=DisplayedModule}" VerticalOptions="FillAndExpand" >-->
+                                <!--Height="*">-->
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Frame 
+                                                OutlineColor="{StaticResource Transparent}"  
+                                                CornerRadius="3" 
+                                                Padding="2" 
+                                                Margin="0,0,0,5">
+
+                                                <StackLayout Orientation="Horizontal">
+
+                                                    <!--info button-->
+                                                    <!--<Button  Grid.Column="0"  WidthRequest="50" HorizontalOptions="Start" Clicked="Info_Clicked"
+                                                     BackgroundColor="{Binding InfoButtonColor}" CommandParameter="{Binding}">
+                                                        <Button.ImageSource>
+                                                            <FontImageSource Glyph="{StaticResource InfoIcon}" Color="{StaticResource TextPrimary}" FontFamily="FAS"/>
+                                                        </Button.ImageSource>
+                                                    </Button>-->
+
+                                                    <!--First Name-->
+                                                    <Label  
+                                                        HorizontalOptions="CenterAndExpand" 
+                                                        VerticalOptions="CenterAndExpand" 
+                                                        Style="{StaticResource SubtitleTextTheme}" 
+                                                        Text="{Binding Path=FirstName, Mode=OneWay}" 
+                                                        LineBreakMode="WordWrap"/>
+
+                                                    <!--LastName-->
+                                                    <Label   
+                                                        HorizontalOptions="CenterAndExpand" 
+                                                        VerticalOptions="CenterAndExpand" 
+                                                        Style="{StaticResource BodyTextTheme}" 
+                                                        Text="{Binding Path=LastName, Mode=OneWay}"
+                                                        LineBreakMode="WordWrap"/>
+
+                                                    <!--Type-->
+                                                    <Label  HorizontalOptions="CenterAndExpand" 
+                                                            VerticalOptions="CenterAndExpand" 
+                                                            Style="{StaticResource BodyTextTheme}" 
+                                                            Text="{Binding Path=IdentificationNumber, Mode=OneWay}" 
+                                                            LineBreakMode="WordWrap"/>
+
+                                                    <!--obsolete-->
+                                                    <StackLayout Orientation="Horizontal" Spacing="10" Grid.Column="3" VerticalOptions="CenterAndExpand">
+                                                        <!--Status-->
+                                                        <Label  
+                                                            Grid.Column="2" 
+                                                            HorizontalOptions="CenterAndExpand"  
+                                                            VerticalOptions="CenterAndExpand" 
+                                                            Text="Test User"
+                                                            TextColor="{StaticResource TextPrimary}" 
+                                                            Background="{x:Null}" 
+                                                            LineBreakMode="WordWrap"/>
+                                                        <CheckBox 
+                                                            Color="{StaticResource ButtonSelection}" 
+                                                            IsChecked="{Binding Path=IsTestUser}" 
+                                                            Grid.Column="2" 
+                                                            IsEnabled="False"/>
+                                                    </StackLayout>
+
+                                                    <!--Status-->
+                                                    <!--<Label  Grid.Column="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                                                    Text="{Binding StatusMessage}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>-->
+
+                                                    <!--Selection-->
+                                                    <!--<Button  Grid.Column="3" x:Name="SelectButton" WidthRequest="50" HorizontalOptions="End" 
+                                                     TextColor="{StaticResource TextPrimary}" BackgroundColor="{Binding SelectedModuleBackgroundButtonColor}"  
+                                                     Clicked="Select_Clicked" CommandParameter="{Binding}">
+                                                        <Button.ImageSource>
+                                                            <FontImageSource Glyph="{StaticResource CheckIcon}" Color="{StaticResource TextPrimary}" FontFamily="FAS"/>
+                                                        </Button.ImageSource>
+                                                    </Button>-->
+
+
+
+
+
+                                                </StackLayout>
+                                            </Frame>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                    </ScrollView>
+
+
+                </StackLayout>
+
+
+                <!--Right pannel-->
+                <StackLayout WidthRequest="350">
+
+                    <Label Text="User Information" 
+                           Style="{StaticResource Key=TitleTextTheme}"/>
+
+                    <StackLayout Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" HorizontalOptions="CenterAndExpand" Orientation="Vertical">
+                        <Image Margin="10,10,0,0" x:Name="UserPhoto" HeightRequest="75" Source="{localImage:ImageResource DefaultUser.png}" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <Label Text="First Name: " 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+
+                        <Label 
+                               Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=DisplayedUser.FirstName}"/>
+
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <Label Text="Last Name: " 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+                        <Label Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=DisplayedUser.LastName}"/>
+                        <!--ElementName=ModuleList, 
+                                        Mode=OneWay}"/>-->
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <Label Text="Identification Number:" 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+                        <Label Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=DisplayedUser.IdentificationNumber}"/>
+                        <!--ElementName=ModuleList, 
+                                        Mode=OneWay}"/>-->
+                    </StackLayout>
+
+                    <Button
+                        Margin="30"
+                        Style="{StaticResource ButtonTheme}"                                     
+                        Text="Select User"
+                        Command="{Binding Path=SelectUserCommand}">
+                    </Button>
+
+
+                    <Label Text="Selected User Information" 
+                           Style="{StaticResource Key=TitleTextTheme}"/>
+
+                    <StackLayout Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" HorizontalOptions="CenterAndExpand" Orientation="Vertical">
+                        <Image Margin="10,10,0,0" HeightRequest="75" Source="{localImage:ImageResource DefaultUser.png}" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <Label Text="First Name: " 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+
+                        <Label 
+                               Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=SelectedUser.FirstName}"/>
+
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <Label Text="Last Name: " 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+                        <Label Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=SelectedUser.LastName}"/>
+                        <!--ElementName=ModuleList, 
+                                        Mode=OneWay}"/>-->
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <Label Text="Identification Number:" 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+                        <Label Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=SelectedUser.IdentificationNumber}"/>
+                        <!--ElementName=ModuleList, 
+                                        Mode=OneWay}"/>-->
+                    </StackLayout>
+
+                </StackLayout>
+
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

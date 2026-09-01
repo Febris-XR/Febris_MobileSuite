@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              x:Class="Febris.MobileServerV3.MVVM.View.LauncherPage"
+             xmlns:localImage="clr-namespace:Febris.MobileServerV3.Resources.Images"
+             xmlns:vm="clr-namespace:Febris.MobileServerV3.MVVM.ViewModel"
+             BackgroundColor="{StaticResource Secondary}">
+
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+
+            <!--Logo-->
+            <StackLayout BackgroundColor="{StaticResource Primary}" VerticalOptions="Start" HorizontalOptions="Fill">
+                <!--<StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Grid.ColumnSpan="4" Grid.Column="0">-->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                        <Image Source="{localImage:ImageResource Logo.png}" VerticalOptions="Center" HeightRequest="100"/>
+                    </ContentView>
+                </StackLayout>
+            </StackLayout>
+
+
+
+            <StackLayout Orientation="Horizontal" Padding="20,0,0,0">
+
+
+                <!--Left pannel-->
+                <StackLayout Orientation="Vertical">
+
+                    <!--Title Area-->
+                    <StackLayout Orientation="Horizontal">
+
+                        <Label
+                            Text="Please Check All Data Before Launching"                        
+                            Style="{StaticResource Key=TitleTextTheme}"/>
+                    </StackLayout>
+
+                    <!--Show Launcher VM data-->
+                    <StackLayout Orientation="Vertical">
+                        
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="User Selected: " 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+
+                            <CheckBox 
+                                Color="{StaticResource ButtonSelection}" 
+                                IsChecked="{Binding Path=LaunchVM.UserSelected}" 
+                                IsEnabled="False"/>
+                           
+
+                        </StackLayout>
+                                                
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="Module Selected: " 
+                               Style="{StaticResource Key=BodyTextTheme}"
+                               FontAttributes="Bold"/>
+
+                            <CheckBox 
+                                Color="{StaticResource ButtonSelection}" 
+                                IsChecked="{Binding Path=LaunchVM.ModuleSelected}" 
+                                IsEnabled="False"/>
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="Hardware Selected: " 
+                               Style="{StaticResource Key=BodyTextTheme}"
+                               FontAttributes="Bold"/>
+
+                            <CheckBox 
+                                Color="{StaticResource ButtonSelection}" 
+                                IsChecked="{Binding Path=LaunchVM.HardwareSelected}" 
+                                 
+                                IsEnabled="False"/>
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <!-- ROADMAP 22: the "Record Session" checkbox that sat here is GONE.
+                                 Recording is the educator's per-cohort decision, derived by the
+                                 node, and nothing about it belongs on the learner's screen. -->
+
+                        </StackLayout>
+
+                    </StackLayout>
+
+                    <Button
+                        Margin="30"
+                        Style="{StaticResource ButtonTheme}"                                     
+                        Text="Launch"
+                        IsVisible="{Binding Path=LaunchVM.ReadyToLaunch}"
+                        IsEnabled="{Binding Path=LaunchVM.ReadyToLaunch}"
+                        Clicked="LaunchModule_Click">
+                    </Button>
+
+                </StackLayout>
+
+
+                <!--Right pannel-->
+                <StackLayout WidthRequest="350" Padding="30,0,0,0">
+
+                    <Label Text="Current Selections" 
+                           Style="{StaticResource Key=TitleTextTheme}"/>
+                    
+                    <!--User Info-->
+                    <StackLayout Orientation="Vertical" Padding="10">
+
+
+                        <Label Text="Selected User Information" 
+                           Style="{StaticResource Key=SubtitleTextTheme}"/>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="First Name: " 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+
+                            <Label 
+                               Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=UserVM.SelectedUser.FirstName}"/>
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="Last Name: " 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+                            <Label Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=UserVM.SelectedUser.LastName}"/>
+                            <!--ElementName=ModuleList, 
+                                        Mode=OneWay}"/>-->
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="Identification Number:" 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+                            <Label Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=UserVM.SelectedUser.IdentificationNumber}"/>
+                            <!--ElementName=ModuleList, 
+                                        Mode=OneWay}"/>-->
+                        </StackLayout>
+                    </StackLayout>
+                                        
+                    <!--Module Info-->
+                    <StackLayout Orientation="Vertical" Padding="10">
+
+
+                        <Label Text="Selected Module Information" 
+                           Style="{StaticResource Key=SubtitleTextTheme}"/>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="Name: " 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+
+                            <Label 
+                               Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=ModuleVM.SelectedModule.Name}"/>
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="Version: " 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+                            <Label Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=ModuleVM.SelectedModule.Version}"/>
+                            <!--ElementName=ModuleList, 
+                                        Mode=OneWay}"/>-->
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="Description: " 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+                            <Label Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=ModuleVM.SelectedModule.Description}"/>
+                            <!--ElementName=ModuleList, 
+                                        Mode=OneWay}"/>-->
+                        </StackLayout>
+                    </StackLayout>
+                                        
+                    <!--Hardware Info-->
+                    <StackLayout Orientation="Vertical" Padding="10"> 
+
+                        <Label Text="Selected Hardware" 
+                           Style="{StaticResource Key=SubtitleTextTheme}"/>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="Name: " 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+
+                            <Label 
+                               Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=HardwareVM.SelectedItem.CompanionDevice.Name}"/>
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="IP Address: " 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+                            <Label Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=HardwareVM.SelectedItem.WiFiIPAddress}"/>
+                            <!--ElementName=ModuleList, 
+                                        Mode=OneWay}"/>-->
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="Status:" 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+                            <Label Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=HardwareVM.SelectedItem.StatusMessage}"/>
+                            <!--ElementName=ModuleList, 
+                                        Mode=OneWay}"/>-->
+                        </StackLayout>
+                        
+                        <StackLayout Orientation="Horizontal">
+
+                            <Label Text="Device Type: " 
+                           Style="{StaticResource Key=BodyTextTheme}"
+                           FontAttributes="Bold"/>
+                            <Label Style="{StaticResource Key=BodyTextTheme}"
+                               Text="{Binding Path=HardwareVM.SelectedItem.CompanionDevice.WiFiPrimaryDeviceType}"/>
+                            <!--ElementName=ModuleList, 
+                                        Mode=OneWay}"/>-->
+                        </StackLayout>
+                    </StackLayout>
+
+                </StackLayout>
+
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>    
+</ContentPage>

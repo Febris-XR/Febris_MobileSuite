@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+              x:Class="Febris.MobileServerV3.MVVM.View.DevicePage"
+             xmlns:vm="clr-namespace:Febris.MobileServerV3.MVVM.ViewModel"
+             Title="{Binding Title}"
+             xmlns:localImage="clr-namespace:Febris.MobileServerV3.Resources.Images"
+             BackgroundColor="{StaticResource Secondary}">
+    
+    <ContentPage.BindingContext>
+        <vm:CompanionDeviceViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <Grid BackgroundColor="{StaticResource Secondary}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Logo-->
+            <StackLayout BackgroundColor="{StaticResource Primary}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Grid.ColumnSpan="4" Grid.Column="0">
+            <!--<StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Grid.ColumnSpan="4" Grid.Column="0">-->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                        <Image Source="{localImage:ImageResource Logo.png}" VerticalOptions="Center" HeightRequest="100"/>
+                    </ContentView>
+                </StackLayout>
+            </StackLayout>
+            
+            
+            <StackLayout 
+                Grid.Row="1" 
+                Grid.ColumnSpan="4" 
+                HorizontalOptions="CenterAndExpand">
+                <Label 
+                    Style="{StaticResource Key=TitleTextTheme}">
+                    Device List
+                </Label>
+                <!--TextColor="{StaticResource TextPrimary}" 
+                    FontSize="Title"-->
+            </StackLayout>
+
+            <BoxView   
+                Grid.Row="2" 
+                Grid.Column="0"
+                Grid.ColumnSpan="4" 
+                HorizontalOptions="CenterAndExpand" 
+                HeightRequest="1" 
+                Color="{StaticResource Primary}"></BoxView>
+
+            <ScrollView Grid.Row="3" BackgroundColor="{StaticResource Primary}" Grid.ColumnSpan="4">
+                <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10" BackgroundColor="{StaticResource Secondary}">
+                    <!--<ListView  x:Name="DeviceList" ItemSelected="Device_Select" HasUnevenRows="True">-->
+                    <!--<ListView  x:Name="DeviceList" HasUnevenRows="True">-->
+                    <ListView 
+                        ItemsSource="{Binding Path=deviceList}" 
+                        HasUnevenRows="True" 
+                        SelectedItem="{Binding Path=DisplayedItem}"
+                        >
+                        <ListView.ItemTemplate >
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame OutlineColor="{StaticResource TextSecondary}"  CornerRadius="3" Padding="2" Margin="0,0,0,5">
+                                        <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource Secondary}" VerticalOptions="FillAndExpand">
+
+                                            <!--info button-->
+                                            <Button  Grid.Column="0"  WidthRequest="50" HorizontalOptions="Start" 
+                                                     Clicked="DeviceInfo_Click"
+                                                     BackgroundColor="{Binding InfoButtonColor}" CommandParameter="{Binding}">
+                                                <Button.ImageSource>
+                                                    <FontImageSource Glyph="{StaticResource InfoIcon}" Color="{StaticResource TextSecondary}" FontFamily="FAS"/>
+                                                </Button.ImageSource>
+                                            </Button>
+
+                                            <!--Name-->
+                                            <Label  Grid.Column="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Large"
+                                                    Text="{Binding Path=CompanionDevice.Name, Mode=OneWay}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+
+                                            <!--ProgressBar-->
+                                            <ActivityIndicator IsVisible="{Binding Path=ProgressBar}" IsRunning="{Binding Path=ProgressBar}" 
+                                                               BackgroundColor="{StaticResource Secondary}" Color="{StaticResource Primary}"
+                                                               Grid.Column="1" WidthRequest="50" HorizontalOptions="End">
+                                            </ActivityIndicator>
+
+                                            <!--Status-->
+                                            <Label  Grid.Column="2" HorizontalOptions="StartAndExpand"  VerticalOptions="CenterAndExpand"
+                                                    Text="{Binding Path=StatusMessage, Mode=OneWay}" TextColor="{StaticResource TextPrimary}" 
+                                                    Background="{x:Null}" LineBreakMode="WordWrap"/>
+
+
+                                            <!--Video Stream connector-->
+                                            <Button  Grid.Column="3"  WidthRequest="50" HorizontalOptions="Center" BackgroundColor="{Binding VideoStreamAvailableButtonColor}" CommandParameter="{Binding}" Clicked="StartStreaming_Click" IsVisible="{Binding VideoStreamAvailable}">
+                                                <Button.ImageSource>
+                                                    <FontImageSource Glyph="{StaticResource VideoStreamIcon}" Color="{StaticResource TextSecondary}" FontFamily="FAS"/>
+                                                </Button.ImageSource>
+                                            </Button>
+
+                                            <!--Battery connector-->
+                                            <Button  Grid.Column="3"  WidthRequest="50" HorizontalOptions="Center" 
+                                                     BackgroundColor="{StaticResource Secondary}" CommandParameter="{Binding}">
+                                                <Button.ImageSource>
+                                                    <FontImageSource Glyph="{Binding Path=BatteryIcon}" Color="{Binding Path=BatteryIconColor}" FontFamily="FAS"/>
+                                                </Button.ImageSource>
+                                            </Button>
+
+                                            <!--BlueTooth connector-->
+                                            <Button  Grid.Column="3"  WidthRequest="50" HorizontalOptions="Center" 
+                                                     BackgroundColor="{Binding BluetoothConnectedButtonColor}" CommandParameter="{Binding}">
+                                                <Button.ImageSource>
+                                                    <FontImageSource Glyph="{StaticResource BluetoothIcon}" Color="{StaticResource TextSecondary}" FontFamily="FAB"/>
+                                                </Button.ImageSource>
+                                            </Button>
+
+                                            <!--WifiConnection-->
+                                            <Button Grid.Column="3" WidthRequest="50" HorizontalOptions="Center"
+                                                    BackgroundColor="{Binding WiFiConnectedButtonColor}" CommandParameter="{Binding}">
+                                                <Button.ImageSource>
+                                                    <FontImageSource Glyph="{StaticResource WiFiIcon}" Color="{StaticResource TextSecondary}" FontFamily="FAS"/>
+                                                </Button.ImageSource>
+                                            </Button>
+
+                                            <!--Device selection-->
+                                            <Button  Grid.Column="3" x:Name="SelectButton" WidthRequest="50" HorizontalOptions="End" 
+                                                     TextColor="{StaticResource TextPrimary}" BackgroundColor="{Binding SelectedDeviceBackgroundButtonColor}"  
+                                                     Clicked="SelectDevice_Click" CommandParameter="{Binding}">
+                                                <Button.ImageSource>
+                                                    <FontImageSource Glyph="{StaticResource CheckIcon}" Color="{StaticResource TextSecondary}" FontFamily="FAS"/>
+                                                </Button.ImageSource>
+                                            </Button>
+
+                                        </StackLayout>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

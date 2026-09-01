@@ -1,0 +1,39 @@
+﻿// SPDX-FileCopyrightText: 2026 Febris
+// SPDX-License-Identifier: AGPL-3.0-only
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows.Input;
+
+namespace Febris.MobileCompanionV3.Utilities
+{
+    public class RelayCommand : ICommand
+    {
+
+        private Action<object> _execute;
+        private Func<object, bool> _canExecute;
+
+        public event EventHandler CanExecuteChanged;
+        //{
+        //    add { CommandManager.RequerySuggested += value; }
+        //    remove { CommandManager.RequerySuggested -= value; }
+        //}
+
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        {
+            _execute = execute;
+            _canExecute = canExecute;
+
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return _canExecute == null || _canExecute(parameter);
+        }
+
+        public void Execute(object parameter)
+        {
+            _execute(parameter);
+        }
+    }
+}

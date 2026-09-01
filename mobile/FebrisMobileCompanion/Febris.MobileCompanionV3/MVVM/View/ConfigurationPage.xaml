@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Febris.MobileCompanionV3.MVVM.View.ConfigurationPage"
+             xmlns:vm="clr-namespace:Febris.MobileCompanionV3.MVVM.ViewModel"
+             xmlns:localImage="clr-namespace:Febris.MobileCompanionV3.Resources.Images"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource SecondaryBackgroundColor}">
+    
+    <ContentPage.Content>
+        <StackLayout>
+
+            <!--Logo-->
+            <!--<StackLayout BackgroundColor="{StaticResource PrimaryBackgroundColor}" VerticalOptions="Start" HorizontalOptions="Fill">
+                --><!--<StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Grid.ColumnSpan="4" Grid.Column="0">--><!--
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                        <Image Source="{localImage:ImageResource Logo.png}" VerticalOptions="Center" HeightRequest="75"/>
+                    </ContentView>
+                </StackLayout>
+            </StackLayout>-->
+
+
+
+           
+            <!--Body-->
+            <StackLayout 
+                VerticalOptions="CenterAndExpand"
+                Orientation="Horizontal"           
+                Padding="20"
+                >
+
+                <!--Data-->
+                <StackLayout 
+                VerticalOptions="CenterAndExpand"
+                Orientation="Vertical"             
+                HorizontalOptions="Start">
+
+                    <!--Wifi Group Owner Name-->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                        <Label 
+                            HorizontalOptions="EndAndExpand"
+                            Style="{StaticResource SubtitleTextTheme}"
+                            Text="Group Owner Name:"
+                               />
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource BodyTextTheme}"
+                            Text="{Binding Path=P2pGroup.OwnerDeviceName}"
+                            LineBreakMode="WordWrap"
+                            />                        
+                    </StackLayout>
+
+                    <!--Wifi Group Owner Address-->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                        <Label 
+                            HorizontalOptions="EndAndExpand"
+                            Style="{StaticResource SubtitleTextTheme}"
+                            Text="Group Owner Address:"
+                               />
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource BodyTextTheme}"
+                            Text="{Binding Path=P2pGroup.OwnerAddress}"
+                            LineBreakMode="WordWrap"
+                            />
+                    </StackLayout>
+
+                    <!--Network Name-->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                        <Label 
+                            HorizontalOptions="EndAndExpand"
+                            Style="{StaticResource SubtitleTextTheme}"
+                            Text="Network Name:"
+                               />
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource BodyTextTheme}"
+                            Text="{Binding Path=P2pGroup.NetworkName}"
+                            LineBreakMode="WordWrap"
+                            />
+                    </StackLayout>
+
+                    <!--Group Interface-->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                        <Label 
+                            HorizontalOptions="EndAndExpand"
+                            Style="{StaticResource SubtitleTextTheme}"
+                            Text="Group Interface:"
+                               />
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource BodyTextTheme}"
+                            Text="{Binding Path=P2pGroup.GroupInterface}"
+                            LineBreakMode="WordWrap"
+                            />
+                    </StackLayout>
+
+                </StackLayout>
+
+
+                
+                <!--Buttons-->
+                <StackLayout 
+                VerticalOptions="CenterAndExpand"
+                Orientation="Vertical"             
+                HorizontalOptions="EndAndExpand">
+
+                    <!--Forget Paired Server-->
+                    <Button
+                        Text="Forget Paired Server"
+                        Style="{StaticResource ButtonTheme}"                            
+                        Command="{Binding Path=ForgetPairedServer}">                        
+                    </Button>
+                   
+                    <!--Delete Old Statements-->
+                    <Button
+                        Text="Delete Old Statements"
+                        Style="{StaticResource ButtonTheme}"                            
+                        Command="{Binding Path=DeleteOldStatementFiles}">
+                    </Button>
+
+                    <!--Delete Old Video Files-->
+                    <Button
+                        Text="Delete Old Video Files"
+                        Style="{StaticResource ButtonTheme}"                            
+                        Command="{Binding Path=DeleteOldVideoFiles}">
+                    </Button>
+
+                    <!--Restart Applicaiton-->
+                    <Button
+                        Text="Restart Application"
+                        Style="{StaticResource ButtonTheme}"                            
+                        Command="{Binding Path=RestartApplication}">
+                    </Button>
+
+                    <!--Exit Applicaiton-->
+                    <Button
+                        Text="Exit Application"
+                        Style="{StaticResource ButtonTheme}"                            
+                        Command="{Binding Path=ExitApplication}">
+                    </Button>
+
+
+                </StackLayout>
+                
+            </StackLayout>
+
+            
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

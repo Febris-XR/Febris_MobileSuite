@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="200" android:versionName="0.2.0" package="com.febris.companion" android:installLocation="auto" android:requestLegacyExternalStorage="true">
+	<uses-sdk android:minSdkVersion="25" android:targetSdkVersion="33" />
+	<application android:label="Febris.MobileCompanionV3.Android" android:theme="@style/MainTheme" android:icon="@mipmap/Febris_Companion">
+		<provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.provider" android:exported="false" android:grantUriPermissions="true">
+			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths" />
+		</provider>
+		<!--<provider
+            android:name="Febris.MobileCompanionV3.Droid.Utilities.ExternalContentProvider"
+            android:authorities="com.febris.provider"
+            android:exported="true"
+						android:grantUriPermissions="true">      
+    </provider>-->
+		<!--<provider
+    android:name="androidx.core.content.FileProvider"
+    android:authorities="com.febris.provider"
+    android:exported="true"
+    android:grantUriPermissions="true">
+      <meta-data
+          android:name="android.support.FILE_PROVIDER_PATHS"
+          android:resource="@xml/provider_paths" />
+    </provider>-->
+	</application>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.REQUEST_COMPANION_USE_DATA_IN_BACKGROUND" />
+	<uses-permission android:name="android.permission.REQUEST_COMPANION_RUN_IN_BACKGROUND" />
+	<uses-permission android:name="android.permission.CALL_COMPANION_APP" />
+	<uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" />
+	<uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+	<uses-permission android:name="android.permission.SET_ACTIVITY_WATCHER" />
+	<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+	<uses-permission android:name="android.permission.LOCATION_HARDWARE" />
+	<uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	<!--<uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />-->
+	<!--<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+	<uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />-->
+	<!--<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+	<uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />-->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.BATTERY_STATS" />
+	<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+	<uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+	<uses-permission android:name="android.permission.INSTANT_APP_FOREGROUND_SERVICE" />
+	<!-- Screen capture. FOREGROUND_SERVICE is required from API 28 and is what
+	     MediaProjection.CreateVirtualDisplay actually gates on from API 29. Note the
+	     INSTANT_APP_FOREGROUND_SERVICE line above is a DIFFERENT, unrelated instant-app
+	     permission and confers none of this, which is an easy grep false positive.
+	     FOREGROUND_SERVICE_MEDIA_PROJECTION only becomes mandatory at targetSdk 34, which
+	     a MAUI migration would force, so it is pre-declared here because it costs nothing
+	     and is ignored on older platforms. -->
+	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+	<uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+	<!-- REQUIRED FROM ANDROID 13 (API 33) AND THIS APP TARGETS 33, so it is enforced, not
+	     optional. WiFi Direct peer discovery and connection throw SecurityException without
+	     it: ACCESS_FINE_LOCATION no longer covers nearby-device APIs from 13 onward. Its
+	     absence is why this head could work years ago and not now, on a platform that has
+	     moved three releases underneath it.
+	     No neverForLocation flag: this app genuinely does derive location-adjacent
+	     information from WiFi scanning, so claiming otherwise would be false. -->
+	<uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
+	<!-- REQUIRED FROM ANDROID 13 (API 33) to post ANY notification, including the ongoing
+	     one the screen-capture foreground service must display. Without it the notification
+	     is silently suppressed, and a mediaProjection foreground service that cannot show
+	     its notification is exactly the case the platform is designed to stop. -->
+	<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+	<uses-permission android:name="android.permission.LOCAL_MAC_ADDRESS" />
+	<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.INSTALL_LOCATION_PROVIDER" />
+	<uses-permission android:name="android.permission.DELETE_PACKAGES" />
+	<uses-permission android:name="android.permission.BROADCAST_PACKAGE_REMOVED" />
+	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+	<uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+	<uses-permission android:name="android.permission.BIND_DEVICE_ADMIN" />
+	<uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+	<uses-permission android:name="android.permission.INSTALL_PACKAGES" />
+	<uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+	<uses-permission android:name="android.permission.RESTART_PACKAGES" />
+	<uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+	<uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
+	<uses-permission android:name="android.permission.BLUETOOTH" />
+</manifest>

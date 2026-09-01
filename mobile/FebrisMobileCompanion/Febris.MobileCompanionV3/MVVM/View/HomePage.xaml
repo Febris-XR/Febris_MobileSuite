@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Febris.MobileCompanionV3.MVVM.View.HomePage"
+             xmlns:vm="clr-namespace:Febris.MobileCompanionV3.MVVM.ViewModel"
+             xmlns:localImage="clr-namespace:Febris.MobileCompanionV3.Resources.Images"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource SecondaryBackgroundColor}">
+    <ContentPage.Content>
+
+        <StackLayout>
+
+            <!--Logo-->
+            <StackLayout BackgroundColor="{StaticResource PrimaryBackgroundColor}" VerticalOptions="Start" HorizontalOptions="Fill">
+                <!--<StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Grid.ColumnSpan="4" Grid.Column="0">-->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                        <Image Source="{localImage:ImageResource Logo.png}" VerticalOptions="Center" HeightRequest="75"/>
+                    </ContentView>
+                </StackLayout>
+            </StackLayout>
+
+            
+            
+            <!--Show some status icons-->
+            <StackLayout 
+            Orientation="Horizontal" 
+            VerticalOptions="CenterAndExpand">
+
+                <!--WifiConnection-->
+                <Button 
+                           
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{StaticResource StatusIndicatorTheme}"                            
+                            CommandParameter="{Binding}">                    
+                    <Button.ImageSource>
+                        <FontImageSource 
+                            Size="Title"
+                                Glyph="{StaticResource VRIcon}" 
+                                Color="{StaticResource PrimaryButtonColor}" 
+                                FontFamily="FAS"/>
+                    </Button.ImageSource>
+                </Button>
+
+<!--Is connected to server-->
+                <Button 
+                            
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{StaticResource StatusIndicatorTheme}"                            
+                            CommandParameter="{Binding}"
+                            IsVisible="{Binding Path=WiFiConnected}">
+                    <Button.ImageSource>
+                        <FontImageSource 
+                                Glyph="{StaticResource LinkIcon}" 
+                                Color="{StaticResource PrimaryButtonColor}" 
+                                FontFamily="FAS"/>
+                    </Button.ImageSource>
+                </Button>
+
+                <Button 
+                             
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{StaticResource StatusIndicatorTheme}"                            
+                            CommandParameter="{Binding}"
+                            IsVisible="{Binding Path=WiFiConnected}">
+                    <Button.ImageSource>
+                        <FontImageSource 
+                                Glyph="{StaticResource WiFiIcon}" 
+                                Color="{StaticResource PrimaryButtonColor}" 
+                                FontFamily="FAS"/>
+                    </Button.ImageSource>
+                </Button>
+
+
+
+
+            </StackLayout>
+            
+            <!--Progress bar-->
+            <StackLayout 
+                VerticalOptions="Start"
+                Orientation="Horizontal"             
+                HorizontalOptions="CenterAndExpand">
+                <!--ProgressBar-->
+                <ActivityIndicator 
+                IsVisible="{Binding Path=ProgressBarActive}" 
+                IsRunning="{Binding Path=ProgressBarActive}"                 
+                Color="{StaticResource TextPrimary}"                
+                WidthRequest="20" 
+                HorizontalOptions="End">
+                </ActivityIndicator>
+            </StackLayout>
+            
+            <!--Status Message-->
+            <StackLayout 
+            Orientation="Horizontal" 
+            HorizontalOptions="CenterAndExpand">
+                <Label
+                    Style="{StaticResource SubtitleTextTheme}"
+                    Text="{Binding Path=StatusMessage}" 
+                    LineBreakMode="WordWrap"
+                    />
+            </StackLayout>
+
+           
+            
+        </StackLayout>       
+    </ContentPage.Content>
+</ContentPage>

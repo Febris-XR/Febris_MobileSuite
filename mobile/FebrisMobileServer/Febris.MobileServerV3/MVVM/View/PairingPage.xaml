@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Febris.MobileServerV3.MVVM.ViewModel"
+              x:Class="Febris.MobileServerV3.MVVM.View.PairingPage"             
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource SecondaryBackgroundColor}">
+
+    <!--<ContentPage.BindingContext>
+        <vm:CompanionDeviceViewModel/>
+    </ContentPage.BindingContext>-->
+
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <!--<Grid BackgroundColor="{StaticResource Primary}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>-->
+
+            <!--Pairing and install actions.
+
+                NOT a Bluetooth row, despite what this comment used to say. The Bluetooth
+                "Scan" button was removed here on 2026-09-01. It drove a discovery path that
+                produced device records with no UniqueIdentifier, which nothing downstream
+                could turn into a working peer, while real discovery happens when a Companion
+                joins the WiFi Direct group. The mislabel mattered: it read as though the
+                whole row were Bluetooth, and deleting the row on the strength of it would
+                have taken the "Pair" button with it, which is the ONLY entry to the pairing
+                ceremony.-->
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" BackgroundColor="{StaticResource Primary}" Padding="0,0,0,20">
+
+                <!--Numeric-comparison pairing. Opens the modal listing connected peers this
+                    Server does not know yet, docs/MOBILE_AUTH.md 4.1 and 4.5.-->
+                <Button
+                    Text="Pair"
+                    Style="{StaticResource ButtonTheme}"
+                    HorizontalOptions="CenterAndExpand"
+                    Clicked="OpenPairingModal_Click">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            Glyph="{StaticResource LinkIcon}"
+                            Color="{StaticResource LightTextColor}"
+                            FontFamily="FAS"/>
+                    </Button.ImageSource>
+                </Button>
+
+
+                <Button 
+                    Text="Push and Install" 
+                    Style="{StaticResource ButtonTheme}"
+                    HorizontalOptions="CenterAndExpand" 
+                    Clicked="PushApplication_Click" 
+                    IsVisible="{Binding Path=UsbButtonVisability}">
+                    <Button.ImageSource>
+                        <FontImageSource 
+                            Glyph="{StaticResource USBIcon}"
+                            Color="{StaticResource LightTextColor}" 
+                            FontFamily="FAB"/>
+                    </Button.ImageSource>
+                </Button>
+
+                <Button 
+                    Text="Install"   
+                    Style="{StaticResource ButtonTheme}"
+                    HorizontalOptions="CenterAndExpand"
+                    Clicked="InstallApplication_Click"
+                    IsVisible="{Binding Path=UsbButtonVisability}">
+                    <Button.ImageSource>
+                        <FontImageSource 
+                            Glyph="{StaticResource USBIcon}" 
+                            Color="{StaticResource LightTextColor}" 
+                            FontFamily="FAB"/>
+                    </Button.ImageSource>
+                </Button>
+
+
+
+            </StackLayout>
+
+            <!--Status-->
+            <StackLayout>
+                <Label TextColor="{StaticResource PrimaryTextColor}" 
+                       Style="{StaticResource SubtitleTextTheme}"
+                       HorizontalOptions="CenterAndExpand"
+                       Text="{Binding Path=PairingStatus}"
+                       />
+            </StackLayout>
+
+            <!--Title-->
+            <StackLayout>
+                <Label 
+                    TextColor="{StaticResource PrimaryTextColor}"                     
+                       Style="{StaticResource TitleTextTheme}"
+                       HorizontalOptions="CenterAndExpand"
+                    Text="Device list"/>
+            </StackLayout>
+
+
+
+            <ScrollView BackgroundColor="{StaticResource FilledBoxBackgroundColor}">
+                <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+                    <!--<ListView  x:Name="DeviceList" ItemSelected="Device_Select" HasUnevenRows="True">-->
+                    <ListView 
+                        ItemsSource="{Binding Path=ItemList}"
+                        HasUnevenRows="True">
+                        <!--x:Name="DeviceList" 
+                        HasUnevenRows="True">-->
+                        <ListView.ItemTemplate >
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame OutlineColor="{StaticResource TextSecondary}"  CornerRadius="3" Padding="2" Margin="0,0,0,5">
+                                        <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource Secondary}" VerticalOptions="FillAndExpand">
+
+                                            <!--Unpair Delete Button-->
+                                            <Button 
+                                                Grid.Column="0"                   
+                                                BackgroundColor="{StaticResource AsleepButton}" 
+                                                Style="{StaticResource ButtonTheme}"                                                
+                                                Clicked="RemovePairedDevice_Click" 
+                                                WidthRequest="50" 
+                                                HorizontalOptions="CenterAndExpand" 
+                                                CommandParameter="{Binding}">
+                                                <Button.ImageSource>
+                                                    <FontImageSource 
+                                                        Glyph="{StaticResource TrashIcon}" 
+                                                        Color="{StaticResource LightTextColor}" 
+                                                        FontFamily="FAS"/>
+                                                </Button.ImageSource>
+                                            </Button>
+
+                                            <!--Name-->
+                                            <Label  Grid.Column="1" 
+                                                    HorizontalOptions="CenterAndExpand" 
+                                                    VerticalOptions="CenterAndExpand" 
+                                                    Style="{StaticResource SubtitleTextTheme}"                                                    
+                                                    Text="{Binding Path=CompanionDevice.Name, Mode=OneWay}"                                                     
+                                                    Background="{x:Null}" 
+                                                    LineBreakMode="WordWrap"/>
+
+                                            <!--ProgressBar-->
+                                            <ActivityIndicator 
+                                                IsVisible="{Binding Path=ProgressBar}" 
+                                                IsRunning="{Binding Path=ProgressBar}" 
+                                                BackgroundColor="{StaticResource Secondary}" 
+                                                Color="{StaticResource TextSecondary}"
+                                                Grid.Column="1" 
+                                                WidthRequest="50" 
+                                                HorizontalOptions="End">
+                                            </ActivityIndicator>
+
+                                            <!--Status-->
+                                            <Label  Grid.Column="2" 
+                                                    Style="{StaticResource ItalicBodyTextTheme}" 
+                                                    HorizontalOptions="StartAndExpand"  
+                                                    VerticalOptions="CenterAndExpand"
+                                                    Text="{Binding Path=StatusMessage, Mode=OneWay}" 
+                                                    Background="{x:Null}" 
+                                                    LineBreakMode="WordWrap"/>
+
+                                            <!--BlueTooth connector-->
+                                            <Button  Grid.Column="2"  
+                                                     WidthRequest="50" 
+                                                     HorizontalOptions="CenterAndExpand" 
+                                                     BackgroundColor="{Binding Path=BluetoothConnectedButtonColor}" 
+                                                     CommandParameter="{Binding}">
+                                                <Button.ImageSource>
+                                                    <FontImageSource 
+                                                        Glyph="{StaticResource BluetoothIcon}" 
+                                                        Color="{StaticResource LightTextColor}" 
+                                                        FontFamily="FAB"/>
+                                                </Button.ImageSource>
+                                            </Button>
+
+
+                                        </StackLayout>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+
+            <!--</Grid>-->
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

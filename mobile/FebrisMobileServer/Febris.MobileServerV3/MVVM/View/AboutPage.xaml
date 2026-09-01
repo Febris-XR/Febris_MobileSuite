@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Febris.MobileServerV3.MVVM.View.AboutPage"
+             xmlns:vm="clr-namespace:Febris.MobileServerV3.MVVM.ViewModel"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:Febris.MobileServerV3.Resources.Images">
+
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout BackgroundColor="{StaticResource Primary}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">                    
+                    <Image Source="{local:ImageResource Logo.png}" VerticalOptions="Center" HeightRequest="100"/>
+                </ContentView>
+            </StackLayout>
+        </StackLayout>
+        
+        <ScrollView Grid.Row="1" BackgroundColor="{StaticResource Secondary}">
+            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+                <Label 
+                    Style="{StaticResource Key=TitleTextTheme}"
+                    Text="Welcome to the Febris Mobile Server Application" 
+                    />
+                <Label 
+                    Style="{StaticResource Key=BodyTextTheme}"
+                    Text="This application serves as your launcher for standalone XR headsets. In this tethered application you can see your message board, select users, select education modules and launch the simulations."                     
+                    />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="20">
+                    
+                    <Button Margin="20"
+                            Text="Go To Portal"
+                            Style="{StaticResource Key=ButtonTheme}"
+                            Command="{Binding OpenWebCommand}"                            
+                            />
+
+                    <Button Margin="20" 
+                            Text="Reload"
+                            Style="{StaticResource Key=ButtonTheme}"
+                            Clicked="Reload"                               
+                            />
+                </StackLayout>
+
+                <Label
+                    Style="{StaticResource Key=SubtitleTextTheme}"
+                    Text="{Binding Path=HomeVM.StatusMessage}"/>
+                <!--BackgroundColor="{StaticResource Accent}"
+                        TextColor="{StaticResource TextSecondary}" />-->
+            </StackLayout>            
+        </ScrollView>
+        
+    </Grid>
+
+</ContentPage>

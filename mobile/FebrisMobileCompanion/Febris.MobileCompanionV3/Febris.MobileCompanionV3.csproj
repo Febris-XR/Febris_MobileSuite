@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <ApplicationIcon>Febris-icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Icons\fa-brands-400.ttf" />
+    <EmbeddedResource Include="Resources\Icons\fa-regular-400.ttf" />
+    <EmbeddedResource Include="Resources\Icons\fa-solid-900.ttf" />
+    <EmbeddedResource Include="Resources\Images\DefaultPerson.png" />      
+    <EmbeddedResource Include="Resources\Images\Febris-Logo-recolored_white-gimp.png">
+      <LogicalName>Logo.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\FebrisIcon_White.png">
+      <LogicalName>LogoIcon.png</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="P2pCommunication\BlueTooth\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\FebrisMobileServer\Febris.SharedMobileLibrary\Febris.SharedMobileLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="MVVM\View\ConfigurationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MVVM\View\HomePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MVVM\View\LocalFileRepositoryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

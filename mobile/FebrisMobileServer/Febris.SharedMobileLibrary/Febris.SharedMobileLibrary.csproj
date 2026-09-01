@@ -1,0 +1,67 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <UserSecretsId>eacd34f5-8b0d-4843-9388-e2c7f4bb71e5</UserSecretsId>
+    <Configurations>Debug;Release;Staging</Configurations>
+  </PropertyGroup>
+
+  <!-- BouncyCastle carries the pairing key agreement because Mono/Android does not implement
+       ECDiffieHellman. That is device-confirmed rather than suspected: the pairing dialog rendered
+       its "(INSECURE TEST)" title, which only appears when the real ECDH path throws. See
+       docs/MOBILE_KNOWN_ISSUES.md issue 2.
+
+       The netstandard2.0 lib applies to this netstandard2.1 target, it is pure managed code with no
+       p/invoke, and the licence is MIT so nothing here touches the OSS release gates. It must ALSO
+       be declared on both Android heads: those are legacy non-SDK projects, and the same transitive
+       resolution gap already documented on the Companion head's Febris.XApi.Models ProjectReference
+       is the reason not to trust the transitive path to carry an assembly into the APK. -->
+  <ItemGroup>
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+  </ItemGroup>
+
+  <!-- MC-1 (portability fix): this was a <Reference> with a hardcoded Windows Xamarin
+       HintPath (C:\Program Files (x86)\Microsoft\Xamarin\NuGet\xamarin.essentials\1.6.1\...),
+       which only resolved on the original build machine and broke every headless / non-Windows
+       build (CS0234 in DataProtection.cs + ConfigSettings.cs). The same version (1.6.1) via
+       NuGet restores cross-platform with identical behavior on the Xamarin heads. -->
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+  </ItemGroup>
+
+  <!-- xAPI fork convergence: the mobile suite's xAPI POCOs used to be a duplicate copy under
+       Models/XApiModels (namespace Febris.SharedModelLibrary.Models.XApiModels). They are field-
+       identical to the shared contract, so mobile now consumes the single source of truth. In the
+       monorepo workshop this is a ProjectReference; at repo-split time it becomes a PackageReference
+       to the published Apache Febris.XApi.Models NuGet (netstandard2.0, so Xamarin-compatible). -->
+  <ItemGroup>
+    <PackageReference Include="Febris.XApi.Models" Version="0.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="P2pNetworkModels\BlueTooth\" />
+  </ItemGroup>
+
+  <!-- The P2P handshake internals (HkdfSha256, HandshakeInternals) are deliberately
+       `internal`: they are primitives, not API. They still need direct test coverage,
+       because an HKDF that is subtly wrong still produces keys BOTH peers agree on, so
+       the handshake would appear to work while being non-conformant. Only a
+       known-answer test against the RFC 5869 vectors catches that, and it needs to call
+       Derive directly. Test-only visibility, no production consumer. -->
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Febris.MobileP2p.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>

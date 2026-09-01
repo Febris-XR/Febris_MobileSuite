@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Febris.MobileServerV3.MVVM.View.LocalFileRepositoryPage" 
+             xmlns:localImage="clr-namespace:Febris.MobileServerV3.Resources.Images"
+             BackgroundColor="{StaticResource SecondaryBackgroundColor}"
+             >
+
+    <!--<ContentPage.BindingContext>
+        <vm:CompanionDeviceViewModel/>        
+    </ContentPage.BindingContext>-->
+
+    <StackLayout>
+
+        <!--Logo-->
+        <StackLayout BackgroundColor="{StaticResource Primary}" VerticalOptions="Start" HorizontalOptions="Fill">
+            <!--<StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Grid.ColumnSpan="4" Grid.Column="0">-->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                    <Image Source="{localImage:ImageResource Logo.png}" VerticalOptions="Center" HeightRequest="100"/>
+                </ContentView>
+            </StackLayout>
+        </StackLayout>
+
+       
+
+        
+
+        <StackLayout Orientation="Horizontal">
+
+            <!--Left pannel-->
+            <StackLayout Orientation="Vertical">
+
+
+                <StackLayout                 
+                        HorizontalOptions="CenterAndExpand">
+                    <Label 
+                            Style="{StaticResource Key=TitleTextTheme}">
+                        File Management
+                    </Label>
+                </StackLayout>
+
+                <StackLayout 
+                    Orientation="Vertical" 
+                    VerticalOptions="CenterAndExpand" 
+                    Spacing="20">
+
+                   
+                   
+                    <!--Delete Old Statement Files-->
+                    <Button          
+                        HorizontalOptions="Center"
+                        x:Name="SelectButton" 
+                        Text="Delete Old Statements"             
+                        Style="{StaticResource ButtonTheme}"                                                
+                        CornerRadius="10"/>
+
+
+                    <!--Delete Old Video Files-->
+                    <Button          
+                        HorizontalOptions="Center"                       
+                        Text="Delete Old Videos"             
+                        Style="{StaticResource ButtonTheme}"                        
+                        CornerRadius="10"/>
+
+
+                    <!--Device selection-->
+                    <!--<Button          
+                        HorizontalOptions="Center"
+                          Text="Something Else"
+                        Style="{StaticResource ButtonTheme}"
+                        BackgroundColor="{StaticResource PrimaryButtonColor}"                          
+                        CornerRadius="10">
+                </Button>-->
+
+                </StackLayout>
+            </StackLayout>
+
+            <!--Center pannel-->
+            <StackLayout Orientation="Vertical">
+
+                <!--Label-->
+                <StackLayout                 
+                HorizontalOptions="CenterAndExpand">
+                    <Label 
+                    Style="{StaticResource Key=TitleTextTheme}">
+                        Files On System
+                    </Label>
+                </StackLayout>
+
+
+
+                <StackLayout Orientation="Horizontal">
+                    <!--Dual Statement List Box-->
+                <StackLayout Orientation="Vertical" Spacing="10"  VerticalOptions="FillAndExpand">
+
+                    <!--Vertical box setup-->
+                    <StackLayout Orientation="Vertical" Spacing="10" BackgroundColor="{StaticResource Secondary}" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="FillAndExpand">
+
+                        <!--Label-->
+                        <Label  
+                            HorizontalOptions="StartAndExpand"  
+                            VerticalOptions="CenterAndExpand"
+                            Text="Statement List"
+                            Style="{StaticResource SubtitleTextTheme}"
+                            />
+
+                        <!--ListBox-->
+                        <ScrollView   
+                            BackgroundColor="{StaticResource FilledBoxBackgroundColor}" 
+                            HorizontalOptions="StartAndExpand"  
+                            VerticalOptions="CenterAndExpand" 
+                            Padding="10">
+                            <StackLayout Orientation="Vertical">
+                                <ListView ItemsSource="{Binding Path=StatementVM.UnsentStatementFileList}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <Frame 
+                                                    OutlineColor="{StaticResource Transparent}"                                                     
+                                                    CornerRadius="3" 
+                                                    Padding="2" 
+                                                    Margin="0,0,0,5">
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <Label 
+                                                            Text="{Binding Mode=OneWay}"
+                                                            Style="{StaticResource BodyTextTheme}"/>
+                                                    </StackLayout>
+                                                </Frame>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackLayout>
+                        </ScrollView>
+
+                    </StackLayout>
+
+                    <!--Vertical box setup-->
+                    <StackLayout Orientation="Vertical" Spacing="10" BackgroundColor="{StaticResource Secondary}" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="FillAndExpand">
+
+                        <!--Label-->
+                        <Label  
+                            HorizontalOptions="StartAndExpand"  
+                            VerticalOptions="CenterAndExpand"
+                            Text="Old Statement List" 
+                            Style="{StaticResource SubtitleTextTheme}"/>
+
+
+                        <!--ListBox-->
+                        <ScrollView   
+                            BackgroundColor="{StaticResource FilledBoxBackgroundColor}" 
+                            HorizontalOptions="StartAndExpand"  
+                            VerticalOptions="CenterAndExpand" 
+                            Padding="10">
+                            <StackLayout Orientation="Vertical">
+                                <!--<ListView x:Name="OldStatementIdList">-->
+                                <ListView ItemsSource="{Binding Path=StatementVM.SentStatementFileList}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <Frame 
+                                                    OutlineColor="{StaticResource Transparent}"                                                     
+                                                    CornerRadius="3" 
+                                                    Padding="2" 
+                                                    Margin="0,0,0,5">
+                                                    <StackLayout  
+                                                        Orientation="Horizontal">
+                                                        <Label 
+                                                            Text="{Binding Mode=OneWay}"
+                                                            Style="{StaticResource BodyTextTheme}"/>
+                                                    </StackLayout>
+                                                </Frame>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackLayout>
+                        </ScrollView>
+
+                    </StackLayout>
+
+                </StackLayout>
+
+
+
+                <!--Dual Video List Box-->
+                <StackLayout 
+                    Orientation="Vertical" 
+                    Spacing="10" 
+                    BackgroundColor="{StaticResource SecondaryBackgroundColor}" 
+                    Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="4" 
+                    VerticalOptions="FillAndExpand">
+
+
+                    <!--Vertical box setup-->
+
+                    <StackLayout Orientation="Vertical" 
+                                 Spacing="10" 
+                                 BackgroundColor="{StaticResource Secondary}" 
+                                 Grid.Column="0"
+                                 Grid.ColumnSpan="2" 
+                                 VerticalOptions="FillAndExpand">
+
+
+                        <!--Label-->
+
+                        <Label 
+                            HorizontalOptions="StartAndExpand"  
+                            VerticalOptions="CenterAndExpand"
+                            Style="{StaticResource SubtitleTextTheme}"
+                            Text="Video List" />
+
+
+                        <!--ListBox-->
+
+                        <ScrollView  
+                            BackgroundColor="{StaticResource FilledBoxBackgroundColor}" 
+                            HorizontalOptions="StartAndExpand"  
+                            VerticalOptions="CenterAndExpand" 
+                            Padding="10">
+
+                            <StackLayout 
+                                Orientation="Vertical">
+                                <!--<ListView x:Name="VideoIdList">-->
+                                <ListView ItemsSource="{Binding Path=VideoVM.UnsentVideoFileList}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <Frame 
+                                                    OutlineColor="{StaticResource Transparent}"                                                     
+                                                    CornerRadius="3" 
+                                                    Padding="2" 
+                                                    Margin="0,0,0,5">
+                                                    <StackLayout 
+                                                    Orientation="Horizontal">
+                                                        <Label 
+                                                                Text="{Binding Mode=OneWay}"
+                                                                Style="{StaticResource BodyTextTheme}"/>
+                                                    </StackLayout>
+                                                </Frame>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackLayout>
+                        </ScrollView>
+
+                    </StackLayout>
+
+
+                    <!--Vertical box setup-->
+
+                    <StackLayout Orientation="Vertical" Spacing="10" BackgroundColor="{StaticResource Secondary}" Grid.Column="2" Grid.ColumnSpan="2" VerticalOptions="FillAndExpand">
+
+
+                        <!--Label-->
+                        <Label HorizontalOptions="StartAndExpand"  
+                                VerticalOptions="CenterAndExpand"
+                                Style="{StaticResource SubtitleTextTheme}"
+                                Text="Old Video List" />
+
+                        <!--ListBox-->
+                        <ScrollView 
+                            BackgroundColor="{StaticResource FilledBoxBackgroundColor}" 
+                            HorizontalOptions="StartAndExpand"  
+                            VerticalOptions="CenterAndExpand" 
+                            Padding="10">
+                            <StackLayout Orientation="Vertical">
+                                <!--<ListView x:Name="OldVideoIdList">-->
+                                <ListView ItemsSource="{Binding Path=VideoVM.SentVideoFileList}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <Frame 
+                                                    OutlineColor="{StaticResource Transparent}"                                                     
+                                                    CornerRadius="3" 
+                                                    Padding="2" 
+                                                    Margin="0,0,0,5">
+                                                    <StackLayout 
+                                                        Orientation="Horizontal">
+                                                        <Label 
+                                                            Text="{Binding Mode=OneWay}"
+                                                            Style="{StaticResource BodyTextTheme}"/>
+                                                        <!--Background="{x:Null}" 
+                                                            TextColor="{StaticResource TextPrimary}"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>-->
+                                                    </StackLayout>
+                                                </Frame>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackLayout>
+                        </ScrollView>
+
+                    </StackLayout>
+
+                </StackLayout>
+
+            </StackLayout>
+            </StackLayout>
+            
+            <!--Right pannel-->
+            <StackLayout                                 
+                BackgroundColor="{StaticResource SecondaryBackgroundColor}">
+
+
+                <!--Vertical box setup-->
+
+                <StackLayout Orientation="Vertical" 
+                            BackgroundColor="{StaticResource Secondary}"                                  
+                            VerticalOptions="FillAndExpand">
+
+
+                    <!--Label-->
+
+                    <Label 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand"
+                    Style="{StaticResource BodyTextTheme}"
+                    Text="Needed Module List" />
+
+
+                    <!--ListBox-->
+
+                    <ScrollView  
+                    BackgroundColor="{StaticResource FilledBoxBackgroundColor}" 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand" 
+                    >
+
+                        <StackLayout 
+                        Orientation="Vertical">
+                            <!--<ListView x:Name="VideoIdList">-->
+                            <ListView ItemsSource="{Binding Path=ModuleFileVM.NeededFileList}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Frame 
+                                            OutlineColor="{StaticResource Transparent}"                                                     
+                                            CornerRadius="3" 
+                                            Padding="2" 
+                                            Margin="0,0,0,5">
+                                                <StackLayout 
+                                            Orientation="Horizontal">
+                                                    <Label 
+                                                        Text="{Binding Mode=OneWay}"
+                                                        Style="{StaticResource BodyTextTheme}"/>
+                                                    <!--Remove File-->
+                                                    <Button   
+                                                            Style="{StaticResource ButtonTheme}"                
+                                                            HorizontalOptions="Center"                 
+                                                            CommandParameter="{Binding}" 
+                                                            Clicked="RemoveModule_Click"
+                                                            >
+                                                        <Button.ImageSource>
+                                                            <FontImageSource 
+                                                                    Glyph="{StaticResource TrashIcon}"
+                                                                    FontFamily="FAS"/>
+                                                        </Button.ImageSource>
+                                                    </Button>
+                                                </StackLayout>
+                                            </Frame>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                    </ScrollView>
+
+
+                    <!--Label-->
+
+                    <Label 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand"
+                    Style="{StaticResource BodyTextTheme}"
+                    Text="Up-To-Date Module List" />
+
+
+                    <!--ListBox-->
+
+                    <ScrollView  
+                    BackgroundColor="{StaticResource FilledBoxBackgroundColor}" 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand" 
+                    >
+
+                        <StackLayout 
+                        Orientation="Vertical">
+                            <!--<ListView x:Name="VideoIdList">-->
+                            <ListView ItemsSource="{Binding Path=ModuleFileVM.CurrentFileList}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Frame 
+                                            OutlineColor="{StaticResource Transparent}"                                                     
+                                            CornerRadius="3" 
+                                            Padding="2" 
+                                            Margin="0,0,0,5">
+                                                <StackLayout 
+                                            Orientation="Horizontal">
+                                                    <Label 
+                                                        Text="{Binding Mode=OneWay}"
+                                                        Style="{StaticResource BodyTextTheme}"/>
+                                                    <!--Remove File-->
+                                                    <Button   
+                                                            Style="{StaticResource ButtonTheme}"                
+                                                            HorizontalOptions="Center"                 
+                                                            CommandParameter="{Binding}" 
+                                                            Clicked="RemoveModule_Click"
+                                                            >
+                                                        <Button.ImageSource>
+                                                            <FontImageSource 
+                                                                    Glyph="{StaticResource TrashIcon}"
+                                                                    FontFamily="FAS"/>
+                                                        </Button.ImageSource>
+                                                    </Button>
+                                                </StackLayout>
+                                            </Frame>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                    </ScrollView>
+
+
+                    <!--Label-->
+
+                    <Label 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand"
+                    Style="{StaticResource BodyTextTheme}"
+                    Text="Old Module List" />
+
+
+                    <!--ListBox-->
+
+                    <ScrollView  
+                    BackgroundColor="{StaticResource FilledBoxBackgroundColor}" 
+                    HorizontalOptions="StartAndExpand"  
+                    VerticalOptions="CenterAndExpand" 
+                    >
+
+                        <StackLayout 
+                        Orientation="Vertical">
+                            <!--<ListView x:Name="VideoIdList">-->
+                            <ListView ItemsSource="{Binding Path=ModuleFileVM.NotNeededFileList}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Frame 
+                                            OutlineColor="{StaticResource Transparent}"                                                     
+                                            CornerRadius="3" 
+                                            Padding="2" 
+                                            Margin="0,0,0,5">
+                                                <StackLayout 
+                                            Orientation="Horizontal">
+                                                    <Label 
+                                                        Text="{Binding Mode=OneWay}"
+                                                        Style="{StaticResource BodyTextTheme}"/>
+                                                    <!--Remove File-->
+                                                    <Button   
+                                                            Style="{StaticResource ButtonTheme}"                
+                                                            HorizontalOptions="Center"                 
+                                                            CommandParameter="{Binding}" 
+                                                            Clicked="RemoveModule_Click"
+                                                            >
+                                                        <Button.ImageSource>
+                                                            <FontImageSource 
+                                                                    Glyph="{StaticResource TrashIcon}"
+                                                                    FontFamily="FAS"/>
+                                                        </Button.ImageSource>
+                                                    </Button>
+                                                </StackLayout>
+                                            </Frame>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                    </ScrollView>
+
+
+                </StackLayout>
+
+            </StackLayout>
+            
+        </StackLayout>
+    </StackLayout>
+   
+</ContentPage>
