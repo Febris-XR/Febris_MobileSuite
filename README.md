@@ -80,8 +80,11 @@ frame queue and drawn on a SurfaceView in a foreground service. It has run on re
 
 ## Limits worth knowing
 
-- **Manifests still carry `versionCode 1` and pre-rename package identifiers.** They need settling
-  before anything is published, because a package identifier is permanent once installed.
+- **The package identifiers and the version line are settled and shipped.** Both heads carry
+  `com.febris.mobileserver` and `com.febris.companion` at `versionName 0.2.0` / `versionCode 200`,
+  and v0.2.0 is published. A package identifier is permanent once installed, so these are not
+  free to change. The version is owned by `mobile/tools/version.py`, which is the only supported
+  way to move it, and CI fails a pull request whose four version carriers disagree.
 - **Bandwidth, latency and resolution figures for the video path have never been measured on
   device.** The pipeline is verified to run. The numbers are not verified.
 - The xAPI model types come from the `Febris.XApi.Models` package rather than from source in this

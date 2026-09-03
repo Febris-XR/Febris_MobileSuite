@@ -1,0 +1,35 @@
+# Enforces that the shared mobile version line is internally consistent.
+#
+# WHY THERE IS NO BUILD JOB HERE. Both heads are Xamarin.Forms, which reached end of life in May
+# 2024, and the Xamarin workloads were dropped from the GitHub-hosted runner images. The APKs are
+# therefore compiled locally and signed with a key that is deliberately never placed in CI. That
+# is a recorded decision rather than an omission, so this repository does what CI can still do
+# honestly, which is check the things that do not need a compiler.
+#
+# WHAT THIS CATCHES. The version used to live in four hand-edited files with nothing comparing
+# them. An APK whose manifest says 0.2.0 installs perfectly well while the distribution feed
+# advertises it as 0.2.1, so the mismatch is invisible until it reaches a device, and Android
+# identifiers are permanent once an APK ships. This job fails the pull request instead.
+
+name: Version line
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  version-line:
+    name: mobile version line is consistent
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Check the version line
+        run: python mobile/tools/version.py --check
