@@ -29,83 +29,15 @@
             <StackLayout 
                 Orientation="Vertical" 
                 Spacing="10" 
-                BackgroundColor="{StaticResource Secondary}"                
-                VerticalOptions="FillAndExpand">
-
-                <!--Label-->
-                <Label  
-                            HorizontalOptions="StartAndExpand"  
-                            VerticalOptions="CenterAndExpand"
-                            Text="Febris Message Board"
-                            Style="{StaticResource TitleTextTheme}"
-                            />
-
-
-                <ScrollView>
-            <StackLayout 
-                Orientation="Vertical"                  
-                Padding="10" Spacing="10" 
-                BackgroundColor="{StaticResource FilledBoxBackgroundColor}">
-                <ListView 
-                    ItemsSource="{Binding Path=FebrisMessageBoard}" 
-                    HasUnevenRows="True" 
-                    Margin="5"
-                    >                    
-                    <ListView.ItemTemplate>                        
-                        <DataTemplate>                            
-                            <ViewCell>
-                                <Frame 
-                                    OutlineColor="{StaticResource Transparent}"                                                     
-                                    CornerRadius="3" 
-                                    Padding="2" 
-                                    Margin="0,0,0,5">
-                                    <ContentView>
-                                    <StackLayout 
-                                        Orientation="Horizontal" Spacing="10">
-                                        <Label
-                                            Text="{Binding Path=Subject, Mode=OneWay}" 
-                                            Style="{StaticResource SubtitleTextTheme}" 
-                                            HorizontalOptions="StartAndExpand" 
-                                            LineBreakMode="WordWrap" 
-                                            WidthRequest="250"
-                                            />
-                                        <Label      
-                                            Text="{Binding Path=TimeStamp, Mode=OneWay}" 
-                                            Style="{StaticResource ItalicBodyTextTheme}"
-                                            HorizontalOptions="StartAndExpand" 
-                                            LineBreakMode="WordWrap" 
-                                            WidthRequest="200"
-                                            />
-                                        <Label 
-                                            Text="{Binding Path=Message, Mode=OneWay}" 
-                                            Style="{StaticResource BodyTextTheme}"
-                                            LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand"/>    
-                                    </StackLayout>                                
-                                </ContentView>
-                                </Frame>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
-        </ScrollView>
-                
-                
-
-            </StackLayout>
-
-            <!--Vertical box setup-->
-            <StackLayout 
-                Orientation="Vertical" 
-                Spacing="10" 
                 BackgroundColor="{StaticResource Secondary}"
-                VerticalOptions="FillAndExpand">
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
 
                 <!--Label-->
                 <Label  
                             HorizontalOptions="StartAndExpand"  
                             VerticalOptions="CenterAndExpand"
-                            Text="Local Message Board" 
+                            Text="Message Board" 
                             Style="{StaticResource TitleTextTheme}"/>
 
 
@@ -122,38 +54,37 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
-                                        <Frame 
-                                    OutlineColor="{StaticResource Transparent}"                                                     
-                                    CornerRadius="3" 
-                                    Padding="2" 
-                                    Margin="0,0,0,5">
-                                            <ContentView>
-                                                <StackLayout             
-                                Orientation="Vertical">
-                                                    <StackLayout 
-                                    Orientation="Horizontal" 
-                                                        Spacing="10">
-                                                        <Label
-                                                            Text="{Binding Path=Subject, Mode=OneWay}" 
-                                                            Style="{StaticResource SubtitleTextTheme}" 
-                                                            HorizontalOptions="StartAndExpand" 
-                                                            LineBreakMode="WordWrap" 
-                                                            WidthRequest="250"                                             
-                                                            />
-                                                        <Label      
-                                                            Text="{Binding Path=TimeStamp, Mode=OneWay}" 
-                                                            Style="{StaticResource ItalicBodyTextTheme}"
-                                                            HorizontalOptions="StartAndExpand" 
-                                                            LineBreakMode="WordWrap" 
-                                                            WidthRequest="200"
-                                                            />
-                                                        <Label 
-                                                            Text="{Binding Path=Message, Mode=OneWay}" 
-                                                            Style="{StaticResource BodyTextTheme}"
-                                                            LineBreakMode="WordWrap" Padding="10"/>
-                                                    </StackLayout>
-                                                </StackLayout>
-                                            </ContentView>
+                                        <!-- Laid out like a short email. Subject is the heading, the date sits under it small
+                                             and italic, and the body gets the room. Previously all three sat side by side in a
+                                             HORIZONTAL StackLayout with WidthRequest 250 and 200, so a post rendered as three
+                                             narrow columns and the message was the most cramped of the three. -->
+                                        <Frame
+                                            OutlineColor="{StaticResource Transparent}"
+                                            CornerRadius="3"
+                                            Padding="12"
+                                            Margin="0,0,0,8">
+                                            <StackLayout Orientation="Vertical" Spacing="2">
+                                    
+                                                <Label
+                                                    Text="{Binding Path=Subject, Mode=OneWay}"
+                                                    Style="{StaticResource SubtitleTextTheme}"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    LineBreakMode="WordWrap"/>
+                                    
+                                                <Label
+                                                    Text="{Binding Path=DisplayTimeStamp, Mode=OneWay}"
+                                                    Style="{StaticResource ItalicBodyTextTheme}"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    LineBreakMode="TailTruncation"/>
+                                    
+                                                <Label
+                                                    Text="{Binding Path=Message, Mode=OneWay}"
+                                                    Style="{StaticResource BodyTextTheme}"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    Margin="0,8,0,0"
+                                                    LineBreakMode="WordWrap"/>
+                                    
+                                            </StackLayout>
                                         </Frame>
                                     </ViewCell>
                                 </DataTemplate>

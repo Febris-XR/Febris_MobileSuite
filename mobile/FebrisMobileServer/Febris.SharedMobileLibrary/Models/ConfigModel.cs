@@ -14,7 +14,12 @@ namespace Febris.SharedMobileLibrary.Models
             Domain = string.Empty;
             DomainPrefix = string.Empty;
             DomainPort = string.Empty;
-            DomainPath = string.Empty;
+            // Every node controller is [Route("api/[controller]")], so this segment is
+            // fixed by the API itself rather than being a per deployment choice. It shipped
+            // empty, which built http://host:port/Token/authenticate instead of
+            // http://host:port/api/Token/authenticate. The node answered 401, so a fresh
+            // install looked like a rejected hardware credential rather than a wrong URL.
+            DomainPath = "api";
             UserName = string.Empty;
             Password = string.Empty;
         }

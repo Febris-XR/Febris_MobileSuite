@@ -367,6 +367,13 @@ namespace Febris.MobileCompanionV3.P2pCommunication.WiFi
                 Console.WriteLine("Statement Processing Header: " + header + "Statement Processing Data: ");// + data);
                 return false;
             }
+            finally
+            {
+                // Every one of the three writers of this flag set it TRUE and none ever set it
+                // false, so the first unit of work left the spinner running forever. In a finally
+                // rather than beside each return, because two of these three catches rethrow.
+                LocalHardwareStaticDetails.StaticMainVM.HomeVM.ProgressBarActive = false;
+            }
 
 
         }
@@ -391,6 +398,13 @@ namespace Febris.MobileCompanionV3.P2pCommunication.WiFi
             {
                 Console.WriteLine(ex.StackTrace);
                 throw;
+            }
+            finally
+            {
+                // Every one of the three writers of this flag set it TRUE and none ever set it
+                // false, so the first unit of work left the spinner running forever. In a finally
+                // rather than beside each return, because two of these three catches rethrow.
+                LocalHardwareStaticDetails.StaticMainVM.HomeVM.ProgressBarActive = false;
             }
         }
 
@@ -464,6 +478,13 @@ namespace Febris.MobileCompanionV3.P2pCommunication.WiFi
             {
                 Console.WriteLine(ex.StackTrace);
                 throw;
+            }
+            finally
+            {
+                // Every one of the three writers of this flag set it TRUE and none ever set it
+                // false, so the first unit of work left the spinner running forever. In a finally
+                // rather than beside each return, because two of these three catches rethrow.
+                LocalHardwareStaticDetails.StaticMainVM.HomeVM.ProgressBarActive = false;
             }
         }
 
@@ -965,7 +986,7 @@ namespace Febris.MobileCompanionV3.P2pCommunication.WiFi
 
 
 
-        ///pulled directly from mobile companion applicaiton
+        ///pulled directly from mobile companion application
         ///
         //public static void P2PWifiDownloadTransfer(string receivedFrom, byte[] input)
         //{

@@ -79,6 +79,12 @@ namespace Febris.MobileCompanionV3.P2pCommunication.WiFi
                         return;
                     }
 
+                    // Before dispatch and for EVERY body type, mirroring the Mobile Server, which
+                    // calls NotePeerIsTalking at the same point for the same reason. Reaching here
+                    // means the frame parsed and passed the direction gate above, so the far end is
+                    // demonstrably a Febris peer and not merely an open socket.
+                    StatusUpdateHelper.ServerResponding();
+
                     //process data
                     processed = await WiFiP2pRequestProcessing.ProcessDownloadedData(header, body);
                     //update ip addres of view model

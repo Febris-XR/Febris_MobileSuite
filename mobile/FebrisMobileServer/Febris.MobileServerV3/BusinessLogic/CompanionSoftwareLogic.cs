@@ -103,8 +103,33 @@ namespace Febris.MobileServerV3.BusinessLogic
                 // When useLatest is false, localVersion is provably non-null: the only routes here
                 // are latestVersion == null (so localVersion != null, per the guard above) or the two
                 // UUIDs matching, which a null localVersion cannot do.
-                bool useLatest = latestVersion != null && localVersion?.UUID != latestVersion.UUID;
+                // VERSION, not just uuid (2026-09-02). A release KEEPS its uuid across versions by
+                // design, because CLIENT_RELEASE_GUIDE.md line 241 tells publishers to keep it and
+                // change the version and artifact. So a uuid comparison alone can never notice an
+                // update. The node would ingest 0.2.1 and this device would serve 0.2.0 forever,
+                // because the uuids matched and the file for that uuid was already on disk.
+                // See docs/OSS_CLIENT_DISTRIBUTION.md section 3.6, which called this out in writing.
+                //
+                // Difference, not "newer". The node is the authority on what it serves, and it
+                // resolves latest itself. A client-side ordering rule here would fight that and
+                // could strand a device when an operator deliberately rolls a release back.
+                bool versionChanged = latestVersion != null
+                    && localVersion != null
+                    && !string.Equals(localVersion.Version, latestVersion.Version, StringComparison.OrdinalIgnoreCase);
+
+                bool useLatest = latestVersion != null
+                    && (localVersion?.UUID != latestVersion.UUID || versionChanged);
                 Guid targetUUID = useLatest ? latestVersion.UUID : localVersion.UUID;
+
+                // SAME uuid, NEW version. Both copies on disk are keyed by uuid, so they look
+                // current while holding the previous release. Clear them or the download below is
+                // skipped and the whole comparison above achieves nothing.
+                if (versionChanged && localVersion.UUID == targetUUID)
+                {
+                    PairingPageStatusHelper.GenericMessage(
+                        "A newer companion package is available. Replacing the local copy.");
+                    await _context.DeleteCompanionAppVersion(targetUUID);
+                }
 
                 fileExists = await _context.FileExists(targetUUID);
 

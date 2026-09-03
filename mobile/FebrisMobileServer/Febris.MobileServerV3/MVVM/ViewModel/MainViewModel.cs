@@ -197,7 +197,6 @@ namespace Febris.MobileServerV3.MVVM.ViewModel
             HomeVM = new HomeViewModel();
             MessageboardVM = new MessageBoardViewModel()
             {
-                FebrisMessageBoard = LocalHardwareStaticDetails.HardwareInitializationResponse?.MessageboardViewModels?.AdminMessageBoardList ?? new List<AdminMessageBoard>(),
                 LocalMessageBoard = LocalHardwareStaticDetails.HardwareInitializationResponse?.MessageboardViewModels?.MessageBoardList ?? new List<MessageBoard>()
             };
             UserVM = new UserViewModel()

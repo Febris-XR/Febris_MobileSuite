@@ -127,7 +127,10 @@ namespace Febris.MobileServerV3.APIInteractions
                     ModuleId = module.UUID,
                     UserId = selectedUser.UserId,
                     ActorId = selectedUser.ActorId,
-                    IsTestUser = selectedUser.IsTestUser
+                    // Test users were removed from the node, so no learner reaching this point
+                    // can be one. Kept on the wire rather than dropped from the contract so
+                    // the hub and the shared view model stay unchanged.
+                    IsTestUser = false
                 };
 
                 dataPackage = JsonConvert.SerializeObject(statementRequest);

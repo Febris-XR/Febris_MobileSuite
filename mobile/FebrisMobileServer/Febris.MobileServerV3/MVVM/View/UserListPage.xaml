@@ -102,23 +102,6 @@
                                                             Text="{Binding Path=IdentificationNumber, Mode=OneWay}" 
                                                             LineBreakMode="WordWrap"/>
 
-                                                    <!--obsolete-->
-                                                    <StackLayout Orientation="Horizontal" Spacing="10" Grid.Column="3" VerticalOptions="CenterAndExpand">
-                                                        <!--Status-->
-                                                        <Label  
-                                                            Grid.Column="2" 
-                                                            HorizontalOptions="CenterAndExpand"  
-                                                            VerticalOptions="CenterAndExpand" 
-                                                            Text="Test User"
-                                                            TextColor="{StaticResource TextPrimary}" 
-                                                            Background="{x:Null}" 
-                                                            LineBreakMode="WordWrap"/>
-                                                        <CheckBox 
-                                                            Color="{StaticResource ButtonSelection}" 
-                                                            IsChecked="{Binding Path=IsTestUser}" 
-                                                            Grid.Column="2" 
-                                                            IsEnabled="False"/>
-                                                    </StackLayout>
 
                                                     <!--Status-->
                                                     <!--<Label  Grid.Column="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"

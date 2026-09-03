@@ -89,6 +89,35 @@ namespace Febris.MobileServerV3.DataLogic
             return output;
         }
 
+        /// <summary>
+        /// Remove BOTH copies of one package, the unpacked folder and the zip.
+        ///
+        /// <para>
+        /// DeleteOldCompanionApp clears only the COMPRESSED directory, and FileExists checks the
+        /// UNCOMPRESSED one first, so clearing the zip alone leaves the previous release unpacked and
+        /// still reporting itself as present. That is harmless when the uuid changes, because the two
+        /// releases occupy different paths. It is wrong when a release KEEPS its uuid and moves its
+        /// version, which is exactly what CLIENT_RELEASE_GUIDE.md instructs publishers to do.
+        /// </para>
+        /// </summary>
+        internal async Task<bool> DeleteCompanionAppVersion(Guid input)
+        {
+            bool output = false;
+            try
+            {
+                await _fileManager.DeleteDirectory(
+                    Path.Combine(FileSystem.UncompressedCompanionApplicationPath, input.ToString()));
+                await FileManager.DeleteFile(
+                    Path.Combine(FileSystem.CompressedCompanionApplicationPath, input.ToString() + ".zip"));
+                output = true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return output;
+        }
+
         internal async Task<bool> FileExists(Guid input)
         {
             bool output = false;

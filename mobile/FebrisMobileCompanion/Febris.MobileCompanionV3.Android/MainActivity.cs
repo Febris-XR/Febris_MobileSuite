@@ -235,7 +235,7 @@ namespace Febris.MobileCompanionV3.Droid
             };
             //PermissionChecker(permissions).Wait();
             //RequestPermissionsAsync()
-            RequestPermissions(AddModernRuntimePermissions(permissions), 0);
+            RequestPermissions(AddModernRuntimePermissions(permissions), RequestRuntimePermissionBatch);
 
             #region Bluetooth Permissions   
             //if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Bluetooth) != (int)Permission.Granted)
@@ -318,7 +318,17 @@ namespace Febris.MobileCompanionV3.Droid
             // Requesting it after LoadApplication keeps the behaviour (the permission is
             // still asked for on every launch until granted) while the app has a rendered
             // page to come back to.
-            RequestInstallPackagesPermissionIfNeeded();
+            //
+            // MOVED AGAIN 2026-09-02, and NOT back into OnCreate. Observed on a moto g 5G on
+            // Android 14: OnCreate raised the runtime permission dialog and then, roughly one
+            // second later, this call put a Settings screen on top of it. The dialog was buried
+            // before it could be answered and ALL SEVEN runtime permissions stayed denied, which
+            // leaves WiFi Direct discovery returning nothing and the app looking broken rather
+            // than unpermitted.
+            //
+            // It now runs from OnRequestPermissionsResult instead. That is still after
+            // LoadApplication, so both problems the comment above describes stay fixed, and it
+            // can no longer interrupt a dialog that is already on screen.
 
             //WiFiStaticDetails._dataProtection = DependencyService.Get<IDataProtection>();
 
@@ -419,6 +429,9 @@ namespace Febris.MobileCompanionV3.Droid
 
 
         #region Permission 
+        // The runtime batch requested from OnCreate. Android delivers its result to
+        // OnRequestPermissionsResult, which is where the install-unknown-apps navigation now waits.
+        private const int RequestRuntimePermissionBatch = 0;
         private const int RequestReadWriteExternalStorage = 2230;
         private const int RequestForManageAllFiles = 2231;
 
@@ -452,6 +465,15 @@ namespace Febris.MobileCompanionV3.Droid
 
             //}
 
+
+            // The runtime dialog has now been answered, so the install-unknown-apps screen can be
+            // raised without burying it. Deliberately not gated on the results. That permission is
+            // needed to deliver module APKs whatever the user chose here, and the method already
+            // no-ops when CanRequestPackageInstalls() is true.
+            if (requestCode == RequestRuntimePermissionBatch)
+            {
+                RequestInstallPackagesPermissionIfNeeded();
+            }
 
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
