@@ -31,7 +31,6 @@ namespace Febris.MobileServerV3.BusinessLogic
                 {
                     LocalHardwareStaticDetails.StaticMainVM.ModuleVM.SearchResultList = response.ModuleList;
                 }
-                LocalHardwareStaticDetails.StaticMainVM.MessageboardVM.FebrisMessageBoard = response.MessageboardViewModels.AdminMessageBoardList;
                 LocalHardwareStaticDetails.StaticMainVM.MessageboardVM.LocalMessageBoard = response.MessageboardViewModels.MessageBoardList;
 
                 CompanionSoftwareLogic compsAppLogic = new CompanionSoftwareLogic();

@@ -21,17 +21,6 @@ namespace Febris.MobileServerV3.MVVM.ViewModel
             }
         }
 
-
-        private List<AdminMessageBoard> _febrisMessageBoard;
-        public List<AdminMessageBoard> FebrisMessageBoard
-        {
-            get { return _febrisMessageBoard; }
-            set
-            {
-                _febrisMessageBoard = value;
-                OnPropertyChanged();
-            }
-        }
      
 
     }

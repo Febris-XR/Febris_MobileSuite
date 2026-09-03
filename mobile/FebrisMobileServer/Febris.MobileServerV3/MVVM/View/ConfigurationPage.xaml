@@ -26,7 +26,7 @@
 
 
                 <!--Left pannel-->
-                <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
 
                     <!--Title Area-->
                     <StackLayout Orientation="Horizontal">
@@ -51,10 +51,12 @@
                             <Label Text="Hardware License: " 
                                 Style="{StaticResource SubtitleTextTheme}"/>
                             <Entry 
+                                HorizontalOptions="FillAndExpand"
                                 Text="{Binding Path=HardwareLicense, Mode=TwoWay}" 
                                 Placeholder="Paste the credential from the node Hardware page"
                                 FontSize="Medium" 
                                 TextColor="{StaticResource TextPrimary}"
+                                PlaceholderColor="{StaticResource SecondaryTextColor}"
                                 x:Name="HardwareId"/>
                         </StackLayout>
 
@@ -78,6 +80,8 @@
                                 Text="Domain Prefix: " 
                                 Style="{StaticResource SubtitleTextTheme}"/>
                                 <Entry 
+                                    HorizontalOptions="FillAndExpand"
+                                    FontSize="Medium"
                                 Style="{StaticResource EntryBoxTheme}"
                                 Text="{Binding Path=ConfigModel.DomainPrefix}"
                                 Placeholder="Prefix" 
@@ -91,6 +95,8 @@
                                 Text="Domain: " 
                                 Style="{StaticResource SubtitleTextTheme}"/>
                                 <Entry 
+                                    HorizontalOptions="FillAndExpand"
+                                    FontSize="Medium"
                                 Style="{StaticResource EntryBoxTheme}"
                                 Text="{Binding Path=ConfigModel.Domain}" 
                                 Placeholder="Domain" 
@@ -104,6 +110,8 @@
                                 Text="Domain Port: " 
                                 Style="{StaticResource SubtitleTextTheme}"/>
                                 <Entry 
+                                    HorizontalOptions="FillAndExpand"
+                                    FontSize="Medium"
                                 Style="{StaticResource EntryBoxTheme}"
                                 Text="{Binding Path=ConfigModel.DomainPort}"                                 
                                 Placeholder="Port" 
@@ -117,6 +125,8 @@
                                 Text="Domain Path: " 
                                 Style="{StaticResource SubtitleTextTheme}"/>
                                 <Entry 
+                                    HorizontalOptions="FillAndExpand"
+                                    FontSize="Medium"
                                 Style="{StaticResource EntryBoxTheme}"
                                 Text="{Binding Path=ConfigModel.DomainPath}" 
                                 Placeholder="Path" 
@@ -136,6 +146,8 @@
                                 Text="User Name: " 
                                 Style="{StaticResource SubtitleTextTheme}"/>
                             <Entry 
+                                HorizontalOptions="FillAndExpand"
+                                FontSize="Medium"
                                 Style="{StaticResource EntryBoxTheme}"
                                 Text="{Binding UserName, Mode=TwoWay}" 
                                 x:Name="UserName" 
@@ -150,6 +162,8 @@
                                 Text="Password: " 
                                 Style="{StaticResource SubtitleTextTheme}"/>
                             <Entry 
+                                HorizontalOptions="FillAndExpand"
+                                FontSize="Medium"
                                 Style="{StaticResource EntryBoxTheme}"
                                 Text="{Binding Password, Mode=TwoWay}" 
                                 x:Name="Password" 

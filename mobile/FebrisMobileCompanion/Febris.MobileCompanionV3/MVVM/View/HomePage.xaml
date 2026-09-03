@@ -48,7 +48,7 @@
                             HorizontalOptions="CenterAndExpand"
                             Style="{StaticResource StatusIndicatorTheme}"                            
                             CommandParameter="{Binding}"
-                            IsVisible="{Binding Path=WiFiConnected}">
+                            IsVisible="{Binding Path=ServerResponding}">
                     <Button.ImageSource>
                         <FontImageSource 
                                 Glyph="{StaticResource LinkIcon}" 
