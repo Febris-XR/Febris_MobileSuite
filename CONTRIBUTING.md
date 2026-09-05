@@ -99,7 +99,9 @@ issue.
 
 The suites live in `tests/FebrisMobileP2pTests` and cover framing, the handshake and its
 coordinator, pairing sessions and secret storage, direction legality, safe file names, and the
-video packetizer and frame queue.
+video packetizer and frame queue. They target `net8.0` and need no Xamarin, so CI runs them on
+every pull request through `.github/workflows/tests.yml`, and a red suite blocks the merge. The
+two Android heads are not built in CI, because Xamarin cannot run on the hosted runners.
 
 - A change to the P2P stack needs a test in the same pull request.
 - A change that can only be verified on hardware should say so, and say what you ran it on. Device
