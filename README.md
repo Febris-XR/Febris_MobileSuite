@@ -18,14 +18,24 @@ installs, xAPI statements and video.
 
 ## Read this before you clone
 
-This repository is **source, not a product you can install today.** Three things are true and
-stated up front rather than discovered:
+This repository is the **source** for both apps. Built artifacts are published on the
+[releases](https://github.com/Febris-XR/Febris_MobileSuite/releases) page, at v0.2.0. Two things
+are true about them and are stated up front rather than discovered:
 
-- **There is no signing keystore, so no publishable APK exists.** You can build and side-load
-  debug builds. A Play-ready artifact needs a keystore that is not in this repository and will
-  never be.
-- **A Release-configuration APK has never been produced for either head.** Debug builds run and
-  the P2P stack has been exercised on real hardware, but the Release path is unproven.
+- **The published v0.2.0 APKs are debug-signed.** They install by sideload or adb and work. What
+  they cannot do is take a release-signed build as an in-place upgrade, because Android refuses
+  across a change of signing certificate. Every device holding v0.2.0 uninstalls once before it
+  can take v0.2.1. There is no Play App Signing escrow behind a sideloaded APK.
+- **A release keystore now exists and the packaging script enforces it.**
+  `mobile/packaging/build-apks.py` takes `FEBRIS_ANDROID_KEYSTORE_DIR` and refuses to package
+  anything whose signing certificate is not the recorded release fingerprint.
+
+> **CORRECTED 2026-09-08.** This section used to open "source, not a product you can install
+> today" and list three things. Two of them are no longer true. It said **There is no signing
+> keystore, so no publishable APK exists**, and it said **A Release-configuration APK has never
+> been produced for either head**. Both were overtaken. The suite published at v0.2.0 on
+> 2026-09-01, the keystore was generated on 2026-08-30, and `build-apks.py` defaults
+> `--config Release`. The third item, on Xamarin, is unchanged and still true.
 - **Xamarin.Forms reached end of support in May 2024.** Everything here builds against it anyway,
   which is why the toolchain notes in [CONTRIBUTING.md](CONTRIBUTING.md) are specific about
   versions. Migration to .NET MAUI is the intended path and has not started.
